@@ -27,19 +27,27 @@ Author URI: http://www.lesterchan.net
 */
 
 
+### Function: Calculate Post Views
+add_action('loop_start', 'process_postviews');
+function process_postviews() {
+	global $post;
+	$post_views = intval(get_post_meta($post->ID, 'views', true));
+	if(empty($_COOKIE[USER_COOKIE])) {
+		if(is_single() || is_page()) {		
+			if($post_views > 0) {
+				update_post_meta($post->ID, 'views', ($post_views+1));	
+			} else {
+				add_post_meta($post->ID, 'views', 1);
+			}
+		}
+	}
+}
+
+
 ### Function: Display The Post Views
 function the_views($text_views = 'Views', $display = true) {
 	global $id;
 	$post_views = intval(get_post_meta($id, 'views', true));
-	if(empty($_COOKIE[USER_COOKIE])) {
-		if(is_single() || is_page()) {		
-			if($post_views > 0) {
-				update_post_meta($id, 'views', ($post_views+1));	
-			} else {
-				add_post_meta($id, 'views', 1);
-			}
-		}
-	}
 	if($display) {
 		echo $post_views.' '.$text_views;
 	} else {
@@ -63,7 +71,7 @@ function get_most_viewed($mode = '', $limit = 10) {
 	if($most_viewed) {
 		foreach ($most_viewed as $post) {
 				$post_title = htmlspecialchars(stripslashes($post->post_title));
-				$post_views = intval( $post->meta_value);
+				$post_views = intval($post->meta_value);
 				echo "- <a href=\"".get_permalink()."\">$post_title</a> ($post_views ".__('Views').")<br />";
 		}
 	} else {
