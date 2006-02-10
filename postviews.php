@@ -30,14 +30,14 @@ Author URI: http://www.lesterchan.net
 ### Function: Calculate Post Views
 add_action('loop_start', 'process_postviews');
 function process_postviews() {
-	global $post;
-	$post_views = intval(get_post_meta($post->ID, 'views', true));
+	global $id;
+	$post_views = intval(get_post_meta($id, 'views', true));
 	if(empty($_COOKIE[USER_COOKIE])) {
 		if(is_single() || is_page()) {		
 			if($post_views > 0) {
-				update_post_meta($post->ID, 'views', ($post_views+1));	
+				update_post_meta($id, 'views', ($post_views+1));	
 			} else {
-				add_post_meta($post->ID, 'views', 1);
+				add_post_meta($id, 'views', 1);
 			}
 		}
 	}
@@ -67,11 +67,11 @@ function get_most_viewed($mode = '', $limit = 10) {
 	} else {
 		$where = '(post_status = \'publish\' OR post_status = \'static\')';
 	}
-	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, meta_value FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY meta_value DESC LIMIT $limit");
+	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, CAST(meta_value AS UNSIGNED) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 	if($most_viewed) {
 		foreach ($most_viewed as $post) {
 				$post_title = htmlspecialchars(stripslashes($post->post_title));
-				$post_views = intval($post->meta_value);
+				$post_views = intval($post->views);
 				echo "- <a href=\"".get_permalink()."\">$post_title</a> ($post_views ".__('Views').")<br />";
 		}
 	} else {
