@@ -57,25 +57,27 @@ function the_views($text_views = 'Views', $display = true) {
 
 
 ### Function: Display Most Viewed Page/Post
-function get_most_viewed($mode = '', $limit = 10) {
-	global $wpdb, $post;
-	$where = '';
-	if($mode == 'post') {
-		$where = 'post_status = \'publish\'';
-	} elseif($mode == 'page') {
-		$where = 'post_status = \'static\'';
-	} else {
-		$where = '(post_status = \'publish\' OR post_status = \'static\')';
-	}
-	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, CAST(meta_value AS UNSIGNED) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
-	if($most_viewed) {
-		foreach ($most_viewed as $post) {
+if(!function_exists('get_most_viewed')) {
+	function get_most_viewed($mode = '', $limit = 10) {
+		global $wpdb, $post;
+		$where = '';
+		if($mode == 'post') {
+			$where = 'post_status = \'publish\'';
+		} elseif($mode == 'page') {
+			$where = 'post_status = \'static\'';
+		} else {
+			$where = '(post_status = \'publish\' OR post_status = \'static\')';
+		}
+		$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, CAST(meta_value AS UNSIGNED) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+		if($most_viewed) {
+			foreach ($most_viewed as $post) {
 				$post_title = htmlspecialchars(stripslashes($post->post_title));
 				$post_views = intval($post->views);
-				echo "- <a href=\"".get_permalink()."\">$post_title</a> ($post_views ".__('Views').")<br />";
+				echo "<li><a href=\"".get_permalink()."\">$post_title</a> ($post_views ".__('Views').")</li>";
+			}
+		} else {
+			echo '<li>'.__('N/A').'</li>';
 		}
-	} else {
-		_e('N/A');
 	}
 }
 ?>
