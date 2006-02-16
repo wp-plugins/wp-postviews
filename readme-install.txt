@@ -8,7 +8,7 @@ postviews.php
 ------------------------------------------------------------------
 
 
-// Activate the WP-PostViews plugin
+// Activate WP-PostViews plugin
 
 
 
