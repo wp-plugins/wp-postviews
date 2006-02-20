@@ -80,4 +80,32 @@ if(!function_exists('get_most_viewed')) {
 		}
 	}
 }
+
+
+### Added by Paolo Tagliaferri (http://www.vortexmind.net - webmaster@vortexmind.net)
+function get_timespan_most_viewed($mode = '', $limit = 10,$days = 7) {
+	global $wpdb, $post;	
+	$limit_date = current_time('timestamp') - ($days*86400); 
+	$limit_date = date("Y-m-d H:i:s",$limit_date);	
+	$where = '';
+	if($mode == 'post') {
+		$where = 'post_status = \'publish\'';
+	} elseif($mode == 'page') {
+		$where = 'post_status = \'static\'';
+	} else {
+		$where = '(post_status = \'publish\' OR post_status = \'static\')';
+	}
+	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, CAST(meta_value AS UNSIGNED) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND post_date > '".$limit_date."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+	if($most_viewed) {
+		echo "<ul>";
+		foreach ($most_viewed as $post) {
+				$post_title = htmlspecialchars(stripslashes($post->post_title));
+				$post_views = intval($post->views);
+				echo "<li><a href=\"".get_permalink()."\">$post_title</a> ($post_views ".__('Views').")</li>";
+		}
+		echo "</ul>";
+	} else {
+		_e('N/A');
+	}
+}
 ?>
