@@ -31,7 +31,7 @@ Author URI: http://www.lesterchan.net
 add_action('loop_start', 'process_postviews');
 function process_postviews() {
 	global $id;
-	$post_views = intval(get_post_meta($id, 'views', true));
+	$post_views = intval(post_custom('views'));
 	if(empty($_COOKIE[USER_COOKIE])) {
 		if(is_single() || is_page()) {		
 			if($post_views > 0) {
@@ -46,8 +46,7 @@ function process_postviews() {
 
 ### Function: Display The Post Views
 function the_views($text_views = 'Views', $display = true) {
-	global $id;
-	$post_views = intval(get_post_meta($id, 'views', true));
+	$post_views = intval(post_custom('views'));
 	if($display) {
 		echo $post_views.' '.$text_views;
 	} else {
