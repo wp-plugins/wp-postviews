@@ -48,7 +48,7 @@ function process_postviews() {
 function the_views($text_views = 'Views', $display = true) {
 	$post_views = intval(post_custom('views'));
 	if($display) {
-		echo $post_views.' '.$text_views;
+		echo number_format($post_views).' '.$text_views;
 	} else {
 		return $post_views;
 	}
@@ -72,6 +72,7 @@ if(!function_exists('get_most_viewed')) {
 			foreach ($most_viewed as $post) {
 				$post_title = htmlspecialchars(stripslashes($post->post_title));
 				$post_views = intval($post->views);
+				$post_views = number_format($post_views);
 				echo "<li><a href=\"".get_permalink()."\">$post_title</a> ($post_views ".__('Views').")</li>";
 			}
 		} else {
@@ -100,6 +101,7 @@ function get_timespan_most_viewed($mode = '', $limit = 10,$days = 7) {
 		foreach ($most_viewed as $post) {
 				$post_title = htmlspecialchars(stripslashes($post->post_title));
 				$post_views = intval($post->views);
+				$post_views = number_format($post_views);
 				echo "<li><a href=\"".get_permalink()."\">$post_title</a> ($post_views ".__('Views').")</li>";
 		}
 		echo "</ul>";
