@@ -3,13 +3,13 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Enables You To Display How Many Time A Post Had Been Viewed.
-Version: 1.00
+Version: 1.01
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
 */
 
 
-/*  Copyright 2005  Lester Chan  (email : gamerz84@hotmail.com)
+/*  Copyright 2006  Lester Chan  (email : gamerz84@hotmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ function the_views($text_views = 'Views', $display = true) {
 
 ### Function: Display Most Viewed Page/Post
 if(!function_exists('get_most_viewed')) {
-	function get_most_viewed($mode = '', $limit = 10) {
+	function get_most_viewed($mode = '', $limit = 10, $chars = 0) {
 		global $wpdb, $post;
 		$where = '';
 		if($mode == 'post') {
@@ -69,11 +69,20 @@ if(!function_exists('get_most_viewed')) {
 		}
 		$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, CAST(meta_value AS UNSIGNED) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 		if($most_viewed) {
-			foreach ($most_viewed as $post) {
-				$post_title = htmlspecialchars(stripslashes($post->post_title));
-				$post_views = intval($post->views);
-				$post_views = number_format($post_views);
-				echo "<li><a href=\"".get_permalink()."\">$post_title</a> ($post_views ".__('Views').")</li>";
+			if($chars > 0) {
+				foreach ($most_viewed as $post) {
+					$post_title = htmlspecialchars(stripslashes($post->post_title));
+					$post_views = intval($post->views);
+					$post_views = number_format($post_views);
+					echo "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('Views')."</li>";
+				}
+			} else {
+				foreach ($most_viewed as $post) {
+					$post_title = htmlspecialchars(stripslashes($post->post_title));
+					$post_views = intval($post->views);
+					$post_views = number_format($post_views);
+					echo "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views')."</li>";
+				}
 			}
 		} else {
 			echo '<li>'.__('N/A').'</li>';
@@ -102,11 +111,21 @@ function get_timespan_most_viewed($mode = '', $limit = 10,$days = 7) {
 				$post_title = htmlspecialchars(stripslashes($post->post_title));
 				$post_views = intval($post->views);
 				$post_views = number_format($post_views);
-				echo "<li><a href=\"".get_permalink()."\">$post_title</a> ($post_views ".__('Views').")</li>";
+				echo "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views')."</li>";
 		}
 		echo "</ul>";
 	} else {
 		_e('N/A');
+	}
+}
+
+
+### Function: Display Total Views
+if(!function_exists('get_totalviews')) {
+	function get_totalviews() {
+		global $wpdb;
+		$total_views = $wpdb->get_var("SELECT SUM(CAST(meta_value AS UNSIGNED)) FROM $wpdb->postmeta WHERE meta_key = 'views'");
+		echo number_format($total_views);
 	}
 }
 ?>
