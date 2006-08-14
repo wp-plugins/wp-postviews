@@ -3,7 +3,7 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Enables You To Display How Many Time A Post Had Been Viewed.
-Version: 1.01
+Version: 1.02
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
 */
@@ -57,9 +57,10 @@ function the_views($text_views = 'Views', $display = true) {
 
 ### Function: Display Most Viewed Page/Post
 if(!function_exists('get_most_viewed')) {
-	function get_most_viewed($mode = '', $limit = 10, $chars = 0) {
+	function get_most_viewed($mode = '', $limit = 10, $chars = 0, $display = true) {
 		global $wpdb, $post;
 		$where = '';
+		$temp = '';
 		if($mode == 'post') {
 			$where = 'post_status = \'publish\'';
 		} elseif($mode == 'page') {
@@ -74,25 +75,30 @@ if(!function_exists('get_most_viewed')) {
 					$post_title = htmlspecialchars(stripslashes($post->post_title));
 					$post_views = intval($post->views);
 					$post_views = number_format($post_views);
-					echo "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('Views')."</li>";
+					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('Views')."</li>\n";
 				}
 			} else {
 				foreach ($most_viewed as $post) {
 					$post_title = htmlspecialchars(stripslashes($post->post_title));
 					$post_views = intval($post->views);
 					$post_views = number_format($post_views);
-					echo "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views')."</li>";
+					$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views')."</li>\n";
 				}
 			}
 		} else {
-			echo '<li>'.__('N/A').'</li>';
+			$temp = '<li>'.__('N/A').'</li>'."\n";
+		}
+		if($display) {
+			echo $temp;
+		} else {
+			return $temp;
 		}
 	}
 }
 
 
 ### Added by Paolo Tagliaferri (http://www.vortexmind.net - webmaster@vortexmind.net)
-function get_timespan_most_viewed($mode = '', $limit = 10,$days = 7) {
+function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7) {
 	global $wpdb, $post;	
 	$limit_date = current_time('timestamp') - ($days*86400); 
 	$limit_date = date("Y-m-d H:i:s",$limit_date);	
@@ -122,10 +128,14 @@ function get_timespan_most_viewed($mode = '', $limit = 10,$days = 7) {
 
 ### Function: Display Total Views
 if(!function_exists('get_totalviews')) {
-	function get_totalviews() {
+	function get_totalviews($display = true) {
 		global $wpdb;
 		$total_views = $wpdb->get_var("SELECT SUM(CAST(meta_value AS UNSIGNED)) FROM $wpdb->postmeta WHERE meta_key = 'views'");
-		echo number_format($total_views);
+		if($display) {
+			echo number_format($total_views);
+		} else {
+			return number_format($total_views);
+		}
 	}
 }
 ?>
