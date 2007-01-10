@@ -3,13 +3,14 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Enables You To Display How Many Time A Post Had Been Viewed.
-Version: 1.02
+Version: 1.10
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
 */
 
 
-/*  Copyright 2006  Lester Chan  (email : gamerz84@hotmail.com)
+/*  
+	Copyright 2007  Lester Chan  (email : gamerz84@hotmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,17 +28,22 @@ Author URI: http://www.lesterchan.net
 */
 
 
+### Create Text Domain For Translation
+load_plugin_textdomain('wp-postviews', 'wp-content/plugins/postviews');
+
+
 ### Function: Calculate Post Views
 add_action('loop_start', 'process_postviews');
 function process_postviews() {
 	global $id;
-	$post_views = intval(post_custom('views'));
+	$post_views = get_post_custom($post_id);
+	$post_views = intval($post_views['views'][0]);
 	if(empty($_COOKIE[USER_COOKIE])) {
 		if(is_single() || is_page()) {		
 			if($post_views > 0) {
 				update_post_meta($id, 'views', ($post_views+1));	
 			} else {
-				add_post_meta($id, 'views', 1);
+				add_post_meta($id, 'views', 1, true);
 			}
 		}
 	}
@@ -45,7 +51,10 @@ function process_postviews() {
 
 
 ### Function: Display The Post Views
-function the_views($text_views = 'Views', $display = true) {
+function the_views($text_views = '', $display = true) {
+	if(empty($text_views)) {
+		$text_views = __('Views', 'wp-postviews');
+	}
 	$post_views = intval(post_custom('views'));
 	if($display) {
 		echo number_format($post_views).' '.$text_views;
@@ -68,25 +77,25 @@ if(!function_exists('get_most_viewed')) {
 		} else {
 			$where = '(post_status = \'publish\' OR post_status = \'static\')';
 		}
-		$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, CAST(meta_value AS UNSIGNED) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+		$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 		if($most_viewed) {
 			if($chars > 0) {
 				foreach ($most_viewed as $post) {
 					$post_title = htmlspecialchars(stripslashes($post->post_title));
 					$post_views = intval($post->views);
 					$post_views = number_format($post_views);
-					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('Views')."</li>\n";
+					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('Views', 'wp-postviews')."</li>\n";
 				}
 			} else {
 				foreach ($most_viewed as $post) {
 					$post_title = htmlspecialchars(stripslashes($post->post_title));
 					$post_views = intval($post->views);
 					$post_views = number_format($post_views);
-					$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views')."</li>\n";
+					$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views', 'wp-postviews')."</li>\n";
 				}
 			}
 		} else {
-			$temp = '<li>'.__('N/A').'</li>'."\n";
+			$temp = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
 		}
 		if($display) {
 			echo $temp;
@@ -110,14 +119,14 @@ function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7) {
 	} else {
 		$where = '(post_status = \'publish\' OR post_status = \'static\')';
 	}
-	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, CAST(meta_value AS UNSIGNED) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND post_date > '".$limit_date."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND post_date > '".$limit_date."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 	if($most_viewed) {
 		echo "<ul>";
 		foreach ($most_viewed as $post) {
 				$post_title = htmlspecialchars(stripslashes($post->post_title));
 				$post_views = intval($post->views);
 				$post_views = number_format($post_views);
-				echo "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views')."</li>";
+				echo "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views', 'wp-postviews')."</li>";
 		}
 		echo "</ul>";
 	} else {
