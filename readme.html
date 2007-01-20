@@ -210,12 +210,14 @@
 			<p><b>Documentation:</b><br /><b>&raquo;</b> <a href="http://dev.wp-plugins.org/wiki/wp-postviews" title="http://dev.wp-plugins.org/wiki/wp-postviews">http://dev.wp-plugins.org/wiki/wp-postviews</a></p>
 			<p><b>Development:</b><br /><b>&raquo;</b> <a href="http://dev.wp-plugins.org/browser/wp-postviews/" title="http://dev.wp-plugins.org/browser/wp-postviews/">http://dev.wp-plugins.org/browser/wp-postviews/</a></p>
 			<p><b>Support Forums:</b><br /><b>&raquo;</b> <a href="http://forums.lesterchan.net/index.php?board=16.0" title="http://forums.lesterchan.net/index.php?board=16.0">http://forums.lesterchan.net/index.php?board=16.0</a></p>
-			<p><b>Updated:</b><br /><b>&raquo;</b> 2nd February 2007</p>
+			<p><b>Updated:</b><br /><b>&raquo;</b> 1st February 2007</p>
+			<p><b>Note:</b><br /><b>&raquo;</b> The <b>Installation</b>, <b>Upgrade</b>, <b>Usage</b> Tab at the top of the page.</p>
 			<div class="SubSubTitle">Changelog</div>
 			<ul>
 				<li>
 					<b>Version 1.10 (01-02-2007)</b>
 					<ul>
+						<li>NEW: Works For WordPress 2.1 Only</li>
 						<li>NEW: Localization WP-PostViews</li>
 						<li>FIXED: Views Not Counting In Some Cases</li>
 					</ul>
@@ -268,15 +270,21 @@
 			<div class="SubSubTitle">From v1.0x To v1.10</div>
 			<ol>
 				<li>
+					<b>Deactivate</b> WP-PostViews Plugin
+				</li>
+				<li>
 					Open <b>wp-content/plugins</b> Folder
+				</li>
+				<li>
+					Put/Overwrite:
+					<blockquote>Folder: postviews</blockquote>
 				</li>
 				<li>
 					Delete:
 					<blockquote>File: postviews.php</blockquote>
 				</li>
 				<li>
-					Put:
-					<blockquote>Folder: postviews</blockquote>
+					<b>Activate</b> WP-PostViews Plugin
 				</li>
 				<li>
 					Refer To <b>Usage</b> For Further Instructions
@@ -320,13 +328,32 @@
 						&nbsp;&nbsp;&nbsp;&lt;?php get_most_viewed(); ?&gt;<br />
 						&lt;?php endif; ?&gt;
 					</blockquote>
-					<p>The <b>first value</b> you pass in is what you want to get, 'post', 'page' or 'both'. The <b>second value</b> you pass in is the number of post you want to get.</p>
+					<p>
+						The <b>first value</b> you pass in is what you want to get, 'post', 'page' or 'both'.<br />
+						The <b>second value</b> you pass in is the maximum number of post you want to get.
+					</p>
 					<p>Default: get_most_viewed('both', 10);</p>
+				</li>
+				<li>
+					To Display <b>Most Viewed Post For A Category</b>
+				</li>
+				<li>
+					Use:
+					<blockquote>
+						&lt;?php if (function_exists('get_most_viewed_category')): ?&gt;<br />
+						&nbsp;&nbsp;&nbsp;&lt;?php get_most_viewed_category(); ?&gt;<br />
+						&lt;?php endif; ?&gt;
+					</blockquote>
+					<p>
+						The <b>first value</b> you pass in is the category id.<br />
+						The <b>second value</b> you pass in is what you want to get, 'post', 'page' or 'both'.<br />
+						The <b>third value</b> you pass in is the maximum number of post you want to get.</p>
+					<p>Default: get_most_viewed_category(1, 'both', 10);</p>
 				</li>
 			</ul>
 		</div>
 	</div>
 </div>
-<p id="Copyright">WP-PostViews 1.10<br />Copyright &copy; 2006 Lester 'GaMerZ' Chan. All Rights Reserved.</p>
+<p id="Copyright">WP-PostViews 1.10<br />Copyright &copy; 2007 Lester 'GaMerZ' Chan. All Rights Reserved.</p>
 </body>
 </html>

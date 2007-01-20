@@ -70,14 +70,48 @@ if(!function_exists('get_most_viewed')) {
 		global $wpdb, $post;
 		$where = '';
 		$temp = '';
-		if($mode == 'post') {
-			$where = 'post_status = \'publish\'';
-		} elseif($mode == 'page') {
-			$where = 'post_status = \'static\'';
-		} else {
-			$where = '(post_status = \'publish\' OR post_status = \'static\')';
+		if(!empty($mode) || $mode != 'both') {
+			$where = "post_type = '$mode'";
 		}
-		$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+		$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+		if($most_viewed) {
+			if($chars > 0) {
+				foreach ($most_viewed as $post) {
+					$post_title = htmlspecialchars(stripslashes($post->post_title));
+					$post_views = intval($post->views);
+					$post_views = number_format($post_views);
+					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('Views', 'wp-postviews')."</li>\n";
+				}
+			} else {
+				foreach ($most_viewed as $post) {
+					$post_title = htmlspecialchars(stripslashes($post->post_title));
+					$post_views = intval($post->views);
+					$post_views = number_format($post_views);
+					$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views', 'wp-postviews')."</li>\n";
+				}
+			}
+		} else {
+			$temp = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
+		}
+		if($display) {
+			echo $temp;
+		} else {
+			return $temp;
+		}
+	}
+}
+
+
+### Function: Display Most Viewed Page/Post By Category ID
+if(!function_exists('get_most_viewed_category')) {
+	function get_most_viewed_category($category_id = 0, $mode = '', $limit = 10, $chars = 0, $display = true) {
+		global $wpdb, $post;
+		$where = '';
+		$temp = '';
+		if(!empty($mode) || $mode != 'both') {
+			$where = "post_type = '$mode'";
+		}
+		$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID LEFT JOIN $wpdb->post2cat ON $wpdb->post2cat.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $wpdb->post2cat.category_id = $category_id AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 		if($most_viewed) {
 			if($chars > 0) {
 				foreach ($most_viewed as $post) {
@@ -112,14 +146,10 @@ function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7) {
 	$limit_date = current_time('timestamp') - ($days*86400); 
 	$limit_date = date("Y-m-d H:i:s",$limit_date);	
 	$where = '';
-	if($mode == 'post') {
-		$where = 'post_status = \'publish\'';
-	} elseif($mode == 'page') {
-		$where = 'post_status = \'static\'';
-	} else {
-		$where = '(post_status = \'publish\' OR post_status = \'static\')';
+	if(!empty($mode) || $mode != 'both') {
+		$where = "post_type = '$mode'";
 	}
-	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND post_date > '".$limit_date."' AND $where AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND post_date > '".$limit_date."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 	if($most_viewed) {
 		echo "<ul>";
 		foreach ($most_viewed as $post) {
@@ -139,7 +169,7 @@ function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7) {
 if(!function_exists('get_totalviews')) {
 	function get_totalviews($display = true) {
 		global $wpdb;
-		$total_views = $wpdb->get_var("SELECT SUM(CAST(meta_value AS UNSIGNED)) FROM $wpdb->postmeta WHERE meta_key = 'views'");
+		$total_views = $wpdb->get_var("SELECT SUM(meta_value+0) FROM $wpdb->postmeta WHERE meta_key = 'views'");
 		if($display) {
 			echo number_format($total_views);
 		} else {
@@ -147,4 +177,25 @@ if(!function_exists('get_totalviews')) {
 		}
 	}
 }
+
+
+### Function: Modify Default WordPress Listing To Make It Sorted By Post Views
+function views_join($content) {
+	global $wpdb;
+	$content .= " LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID";
+	return $content;
+}
+function views_where($content) {
+	global $wpdb;
+	$content .= " AND $wpdb->postmeta.meta_key = 'views'";
+	return $content;
+}
+function views_orderby($content) {
+	global $wpdb;
+	$content = " $wpdb->postmeta.meta_value DESC";
+	return $content;
+}
+//add_filter('posts_join', 'views_join');
+//add_filter('posts_where', 'views_where');
+//add_filter('posts_orderby', 'views_orderby');
 ?>
