@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP-PostViews
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
-Description: Enables You To Display How Many Time A Post Had Been Viewed.
+Description: Enables you to display how many times a post had been viewed. It will not count registered member views, but that can be changed easily.
 Version: 1.10
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
@@ -45,6 +45,7 @@ function process_postviews() {
 			} else {
 				add_post_meta($id, 'views', 1, true);
 			}
+			remove_action('loop_start', 'process_postviews');
 		}
 	}
 }
@@ -72,6 +73,8 @@ if(!function_exists('get_most_viewed')) {
 		$temp = '';
 		if(!empty($mode) || $mode != 'both') {
 			$where = "post_type = '$mode'";
+		} else {
+			$where = '1=1';
 		}
 		$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 		if($most_viewed) {
@@ -110,6 +113,8 @@ if(!function_exists('get_most_viewed_category')) {
 		$temp = '';
 		if(!empty($mode) || $mode != 'both') {
 			$where = "post_type = '$mode'";
+		} else {
+			$where = '1=1';
 		}
 		$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID LEFT JOIN $wpdb->post2cat ON $wpdb->post2cat.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $wpdb->post2cat.category_id = $category_id AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 		if($most_viewed) {
@@ -148,6 +153,8 @@ function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7) {
 	$where = '';
 	if(!empty($mode) || $mode != 'both') {
 		$where = "post_type = '$mode'";
+	} else {
+		$where = '1=1';
 	}
 	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND post_date > '".$limit_date."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 	if($most_viewed) {
