@@ -71,7 +71,7 @@ if(!function_exists('get_most_viewed')) {
 		global $wpdb, $post;
 		$where = '';
 		$temp = '';
-		if(!empty($mode) || $mode != 'both') {
+		if(!empty($mode) && $mode != 'both') {
 			$where = "post_type = '$mode'";
 		} else {
 			$where = '1=1';
@@ -111,7 +111,7 @@ if(!function_exists('get_most_viewed_category')) {
 		global $wpdb, $post;
 		$where = '';
 		$temp = '';
-		if(!empty($mode) || $mode != 'both') {
+		if(!empty($mode) && $mode != 'both') {
 			$where = "post_type = '$mode'";
 		} else {
 			$where = '1=1';
@@ -146,28 +146,32 @@ if(!function_exists('get_most_viewed_category')) {
 
 
 ### Added by Paolo Tagliaferri (http://www.vortexmind.net - webmaster@vortexmind.net)
-function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7) {
+function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7, $display = true) {
 	global $wpdb, $post;	
 	$limit_date = current_time('timestamp') - ($days*86400); 
 	$limit_date = date("Y-m-d H:i:s",$limit_date);	
 	$where = '';
-	if(!empty($mode) || $mode != 'both') {
+	$temp = '';
+	if(!empty($mode) && $mode != 'both') {
 		$where = "post_type = '$mode'";
 	} else {
 		$where = '1=1';
 	}
 	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND post_date > '".$limit_date."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 	if($most_viewed) {
-		echo "<ul>";
 		foreach ($most_viewed as $post) {
-				$post_title = htmlspecialchars(stripslashes($post->post_title));
-				$post_views = intval($post->views);
-				$post_views = number_format($post_views);
-				echo "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views', 'wp-postviews')."</li>";
+			$post_title = htmlspecialchars(stripslashes($post->post_title));
+			$post_views = intval($post->views);
+			$post_views = number_format($post_views);
+			$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views', 'wp-postviews')."</li>";
 		}
-		echo "</ul>";
 	} else {
-		_e('N/A');
+		$temp = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
+	}
+	if($display) {
+		echo $temp;
+	} else {
+		return $temp;
 	}
 }
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-PostViews 1.10\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-01-26 15:12+0800\n"
+"PO-Revision-Date: 2007-01-28 02:14+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Lester Chan <gamerz84@hotmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: postviews.php:97
 #: postviews.php:137
-#: postviews.php:170
+#: postviews.php:169
 msgid "N/A"
 msgstr ""
 
