@@ -190,6 +190,19 @@ if(!function_exists('get_totalviews')) {
 }
 
 
+### Function: Snippet Text
+if(!function_exists('snippet_chars')) {
+	function snippet_chars($text, $length = 0) {
+		$text = htmlspecialchars_decode($text);
+		 if (strlen($text) > $length){       
+			return htmlspecialchars(substr($text,0,$length)).'...';             
+		 } else {
+			return htmlspecialchars($text);
+		 }
+	}
+}
+
+
 ### Function: Modify Default WordPress Listing To Make It Sorted By Post Views
 function views_join($content) {
 	global $wpdb;
