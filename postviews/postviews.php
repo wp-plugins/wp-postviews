@@ -203,6 +203,14 @@ if(!function_exists('snippet_chars')) {
 }
 
 
+### Function: HTML Special Chars Decode
+if (!function_exists('htmlspecialchars_decode')) {
+   function htmlspecialchars_decode($text) {
+       return strtr($text, array_flip(get_html_translation_table(HTML_SPECIALCHARS)));
+   }
+}
+
+
 ### Function: Modify Default WordPress Listing To Make It Sorted By Post Views
 function views_join($content) {
 	global $wpdb;
