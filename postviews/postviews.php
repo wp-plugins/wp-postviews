@@ -224,10 +224,21 @@ function views_where($content) {
 }
 function views_orderby($content) {
 	global $wpdb;
-	$content = " $wpdb->postmeta.meta_value DESC";
+	$orderby = trim(addslashes($_GET['orderby']));
+	if(empty($orderby) && ($orderby != 'asc' || $orderby != 'desc')) {
+		$orderby = 'desc';
+	}
+	$content = " $wpdb->postmeta.meta_value $orderby";
 	return $content;
 }
-//add_filter('posts_join', 'views_join');
-//add_filter('posts_where', 'views_where');
-//add_filter('posts_orderby', 'views_orderby');
+
+
+### Process The Sorting
+/*
+if($_GET['sortby'] == 'views') {
+	add_filter('posts_join', 'views_join');
+	add_filter('posts_where', 'views_where');
+	add_filter('posts_orderby', 'views_orderby');
+}
+*/
 ?>
