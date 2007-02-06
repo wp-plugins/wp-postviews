@@ -3,7 +3,7 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Enables you to display how many times a post had been viewed. It will not count registered member views, but that can be changed easily.
-Version: 1.10
+Version: 1.11
 Author: GaMerZ
 Author URI: http://www.lesterchan.net
 */
@@ -145,7 +145,7 @@ if(!function_exists('get_most_viewed_category')) {
 }
 
 
-### Added by Paolo Tagliaferri (http://www.vortexmind.net - webmaster@vortexmind.net)
+### Function: Get TimeSpan Most Viewed - Added by Paolo Tagliaferri (http://www.vortexmind.net - webmaster@vortexmind.net)
 function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7, $display = true) {
 	global $wpdb, $post;	
 	$limit_date = current_time('timestamp') - ($days*86400); 
@@ -158,6 +158,37 @@ function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7, $display =
 		$where = '1=1';
 	}
 	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND post_date > '".$limit_date."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+	if($most_viewed) {
+		foreach ($most_viewed as $post) {
+			$post_title = htmlspecialchars(stripslashes($post->post_title));
+			$post_views = intval($post->views);
+			$post_views = number_format($post_views);
+			$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views', 'wp-postviews')."</li>";
+		}
+	} else {
+		$temp = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
+	}
+	if($display) {
+		echo $temp;
+	} else {
+		return $temp;
+	}
+}
+
+
+### Function: Get TimeSpan Most Viewed By Category
+function get_timespan_most_viewed_cat($category_id = 0, $mode = '', $limit = 10, $days = 7, $display = true) {
+	global $wpdb, $post;	
+	$limit_date = current_time('timestamp') - ($days*86400); 
+	$limit_date = date("Y-m-d H:i:s",$limit_date);	
+	$where = '';
+	$temp = '';
+	if(!empty($mode) && $mode != 'both') {
+		$where = "post_type = '$mode'";
+	} else {
+		$where = '1=1';
+	}
+	$most_viewed = $wpdb->get_results("SELECT $wpdb->posts.ID, post_title, post_name, post_status, post_date, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID LEFT JOIN $wpdb->post2cat ON $wpdb->post2cat.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $wpdb->post2cat.category_id = $category_id AND post_date > '".$limit_date."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 	if($most_viewed) {
 		foreach ($most_viewed as $post) {
 			$post_title = htmlspecialchars(stripslashes($post->post_title));
@@ -212,6 +243,11 @@ if (!function_exists('htmlspecialchars_decode')) {
 
 
 ### Function: Modify Default WordPress Listing To Make It Sorted By Post Views
+function views_fields($content) {
+	global $wpdb;
+	$content .= ", ($wpdb->postmeta.meta_value+0) AS views";
+	return $content;
+}
 function views_join($content) {
 	global $wpdb;
 	$content .= " LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID";
@@ -223,12 +259,11 @@ function views_where($content) {
 	return $content;
 }
 function views_orderby($content) {
-	global $wpdb;
 	$orderby = trim(addslashes($_GET['orderby']));
 	if(empty($orderby) && ($orderby != 'asc' || $orderby != 'desc')) {
 		$orderby = 'desc';
 	}
-	$content = " $wpdb->postmeta.meta_value $orderby";
+	$content = " views $orderby";
 	return $content;
 }
 
@@ -236,6 +271,7 @@ function views_orderby($content) {
 ### Process The Sorting
 /*
 if($_GET['sortby'] == 'views') {
+	add_filter('posts_fields', 'views_fields');
 	add_filter('posts_join', 'views_join');
 	add_filter('posts_where', 'views_where');
 	add_filter('posts_orderby', 'views_orderby');
