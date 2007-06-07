@@ -39,10 +39,8 @@ function process_postviews() {
 	$post_views = get_post_custom($post_id);
 	$post_views = intval($post_views['views'][0]);
 	if(empty($_COOKIE[USER_COOKIE])) {
-		if(is_single() || is_page()) {		
-			if($post_views > 0) {
-				update_post_meta($id, 'views', ($post_views+1));	
-			} else {
+		if(is_single() || is_page()) {
+			if(!	update_post_meta($id, 'views', ($post_views+1))) {
 				add_post_meta($id, 'views', 1, true);
 			}
 			remove_action('loop_start', 'process_postviews');
