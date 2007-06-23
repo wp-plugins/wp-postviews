@@ -3,7 +3,7 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://www.lesterchan.net/portfolio/programming.php
 Description: Enables you to display how many times a post/page had been viewed. It will not count registered member views, but that can be changed easily.
-Version: 1.11
+Version: 1.20
 Author: Lester 'GaMerZ' Chan
 Author URI: http://www.lesterchan.net
 */
@@ -32,33 +32,58 @@ Author URI: http://www.lesterchan.net
 load_plugin_textdomain('wp-postviews', 'wp-content/plugins/postviews');
 
 
+### Function: Post Views Option Menu
+add_action('admin_menu', 'postviews_menu');
+function postviews_menu() {
+	if (function_exists('add_options_page')) {
+		add_options_page(__('Post Views', 'wp-postviews'), __('Post Views', 'wp-postviews'), 'manage_options', 'postviews/postviews-options.php') ;
+	}
+}
+
+
 ### Function: Calculate Post Views
 add_action('loop_start', 'process_postviews');
 function process_postviews() {
-	global $id;
+	global $id, $user_ID;
+	$views_options = get_option('views_options');
 	$post_views = get_post_custom($post_id);
 	$post_views = intval($post_views['views'][0]);
-	if(empty($_COOKIE[USER_COOKIE])) {
+	$should_count = false;
+	switch(intval($views_options['count'])) {
+		case 0:
+			$should_count = true;
+			break;
+		case 1:
+			if(empty($_COOKIE[USER_COOKIE])) {
+				$should_count = true;
+			}
+			break;
+		case 2:
+			if(intval($user_ID) > 0) {
+				$should_count = true;
+			}
+			break;
+	}
+	if($should_count) {
 		if(is_single() || is_page()) {
 			if(!update_post_meta($id, 'views', ($post_views+1))) {
 				add_post_meta($id, 'views', 1, true);
 			}
 			remove_action('loop_start', 'process_postviews');
-		}
+		}	
 	}
 }
 
 
 ### Function: Display The Post Views
-function the_views($text_views = '', $display = true) {
-	if(empty($text_views)) {
-		$text_views = __('Views', 'wp-postviews');
-	}
+function the_views($display = true) {
 	$post_views = intval(post_custom('views'));
+	$views_options = get_option('views_options');
+	$output = str_replace('%VIEW_COUNT%', number_format($post_views), $views_options['template']);
 	if($display) {
-		echo number_format($post_views).' '.$text_views;
+		echo $output;
 	} else {
-		return $post_views;
+		return $output;
 	}
 }
 
@@ -275,4 +300,15 @@ if($_GET['sortby'] == 'views') {
 	add_filter('posts_orderby', 'views_orderby');
 }
 */
+
+
+### Function: Post Views Options
+add_action('activate_postviews/postviews.php', 'views_init');
+function views_init() {
+	// Add Options
+	$views_options = array();
+	$views_options['count'] = 1;
+	$views_options['template'] = __('%VIEW_COUNT% Views', 'wp-postviews');
+	add_option('views_options', $views_options, 'Post Views Options');
+}
 ?>
