@@ -163,7 +163,7 @@ switch($mode) {
 	</p>
 	<p style="text-align: left; color: red">
 		<strong><?php _e('WARNING:', 'wp-postviews'); ?></strong><br />
-		<?php _e('Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first.', 'wp-postviews') ?>
+		<?php _e('Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first.', 'wp-postviews'); ?>
 	</p>
 	<p style="text-align: left; color: red">
 		<strong><?php _e('The following WordPress Options/PostMetas will be DELETED:', 'wp-postviews'); ?></strong><br />
