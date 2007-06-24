@@ -48,7 +48,7 @@ function widget_views_init() {
 		}		
 	}
 
-	### Function: WP-PostViews Most Rated Widget Options
+	### Function: WP-PostViews Most Viewed Widget Options
 	function widget_views_most_viewed_options() {
 		$options = get_option('widget_views_most_viewed');
 		if (!is_array($options)) {

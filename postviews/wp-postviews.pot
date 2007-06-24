@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-PostViews 1.11\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-06-23 16:37+0800\n"
+"PO-Revision-Date: 2007-06-24 22:40+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Lester Chan <gamerz84@hotmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -145,43 +145,43 @@ msgid ""
 " Choose [Cancel] To Stop, [OK] To Uninstall."
 msgstr ""
 
-#: postviews-widgets.php:55
+#: postviews-widget.php:55
 msgid "Most Viewed"
 msgstr ""
 
-#: postviews-widgets.php:65
+#: postviews-widget.php:65
 msgid "Title"
 msgstr ""
 
-#: postviews-widgets.php:68
+#: postviews-widget.php:68
 msgid "Show Views For: "
 msgstr ""
 
-#: postviews-widgets.php:74
+#: postviews-widget.php:74
 msgid "Post &amp Page"
 msgstr ""
 
-#: postviews-widgets.php:79
+#: postviews-widget.php:79
 msgid "Post"
 msgstr ""
 
-#: postviews-widgets.php:84
+#: postviews-widget.php:84
 msgid "Page"
 msgstr ""
 
-#: postviews-widgets.php:87
+#: postviews-widget.php:87
 msgid "Only"
 msgstr ""
 
-#: postviews-widgets.php:90
+#: postviews-widget.php:90
 msgid "Limit"
 msgstr ""
 
-#: postviews-widgets.php:93
+#: postviews-widget.php:93
 msgid "Post Title Length (Characters)"
 msgstr ""
 
-#: postviews-widgets.php:95
+#: postviews-widget.php:95
 msgid "(<strong>0</strong> to disable)"
 msgstr ""
 
