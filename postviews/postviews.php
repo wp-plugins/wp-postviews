@@ -302,6 +302,67 @@ if($_GET['sortby'] == 'views') {
 */
 
 
+### Function: Plug Into WP-Stats
+if(strpos(get_option('stats_url'), $_SERVER['REQUEST_URI']) || strpos($_SERVER['REQUEST_URI'], 'stats-options.php')) {
+	add_filter('wp_stats_page_admin_plugins', 'postviews_page_admin_general_stats');
+	add_filter('wp_stats_page_admin_most', 'postviews_page_admin_most_stats');
+	add_filter('wp_stats_page_plugins', 'postviews_page_general_stats');
+	add_filter('wp_stats_page_most', 'postviews_page_most_stats');
+}
+
+
+### Function: Add WP-PostViews General Stats To WP-Stats Page Options
+function postviews_page_admin_general_stats($content) {
+	$stats_display = get_option('stats_display');
+	if($stats_display['views'] == 1) {
+		$content .= '<input type="checkbox" name="stats_display[]" value="views" checked="checked" />&nbsp;&nbsp;'.__('WP-PostViews', 'wp-postviews').'<br />'."\n";
+	} else {
+		$content .= '<input type="checkbox" name="stats_display[]" value="views" />&nbsp;&nbsp;'.__('WP-PostViews', 'wp-postviews').'<br />'."\n";
+	}
+	return $content;
+}
+
+
+### Function: Add WP-PostViews Top Most/Highest Stats To WP-Stats Page Options
+function postviews_page_admin_most_stats($content) {
+	$stats_display = get_option('stats_display');
+	$stats_mostlimit = intval(get_option('stats_mostlimit'));
+	if($stats_display['viewed_most'] == 1) {
+		$content .= '<input type="checkbox" name="stats_display[]" value="viewed_most" checked="checked" />&nbsp;&nbsp;'.$stats_mostlimit.' '.__('Most Viewed Posts', 'wp-postviews').'<br />'."\n";
+	} else {
+		$content .= '<input type="checkbox" name="stats_display[]" value="viewed_most" />&nbsp;&nbsp;'.$stats_mostlimit.' '.__('Most Viewed Posts', 'wp-postviews').'<br />'."\n";
+	}
+	return $content;
+}
+
+
+### Function: Add WP-PostViews General Stats To WP-Stats Page
+function postviews_page_general_stats($content) {
+	$stats_display = get_option('stats_display');
+	if($stats_display['views'] == 1) {
+		$content .= '<p><strong>'.__('WP-PostViews', 'wp-postviews').'</strong></p>'."\n";
+		$content .= '<ul>'."\n";
+		$content .= '<li><strong>'.get_totalviews(false).'</strong> '.__('Views Were Generated.', 'wp-postviews').'</li>'."\n";
+		$content .= '</ul>'."\n";
+	}
+	return $content;
+}
+
+
+### Function: Add WP-PostViews Top Most/Highest Stats To WP-Stats Page
+function postviews_page_most_stats($content) {
+	$stats_display = get_option('stats_display');
+	$stats_mostlimit = intval(get_option('stats_mostlimit'));
+	if($stats_display['viewed_most'] == 1) {
+		$content .= '<p><strong>'.$stats_mostlimit.' '.__('Most Viewed Post', 'wp-postviews').'</strong></p>'."\n";
+		$content .= '<ul>'."\n";
+		$content .= get_most_viewed('post', $stats_mostlimit, 0, false);
+		$content .= '</ul>'."\n";
+	}
+	return $content;
+}
+
+
 ### Function: Post Views Options
 add_action('activate_postviews/postviews.php', 'views_init');
 function views_init() {

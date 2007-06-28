@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-PostViews 1.11\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-06-25 00:11+0800\n"
+"PO-Revision-Date: 2007-06-28 16:05+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Lester Chan <gamerz84@hotmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,7 @@ msgid "<a href=\"%s\">Click Here</a> To Finish The Uninstallation And WP-PostVie
 msgstr ""
 
 #: postviews-options.php:116
-#: postviews.php:311
+#: postviews.php:372
 msgid "%VIEW_COUNT% Views"
 msgstr ""
 
@@ -203,5 +203,24 @@ msgstr ""
 #: postviews.php:192
 #: postviews.php:223
 msgid "N/A"
+msgstr ""
+
+#: postviews.php:318
+#: postviews.php:320
+#: postviews.php:343
+msgid "WP-PostViews"
+msgstr ""
+
+#: postviews.php:331
+#: postviews.php:333
+msgid "Most Viewed Posts"
+msgstr ""
+
+#: postviews.php:345
+msgid "Views Were Generated."
+msgstr ""
+
+#: postviews.php:357
+msgid "Most Viewed Post"
 msgstr ""
 
