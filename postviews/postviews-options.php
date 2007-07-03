@@ -113,7 +113,7 @@ switch($mode) {
 		var default_template;
 		switch(template) {
 			case 'template':
-				default_template = "<?php _e('%VIEW_COUNT% Views', 'wp-postviews'); ?>";
+				default_template = "<?php _e('%VIEW_COUNT% views', 'wp-postviews'); ?>";
 				break;
 		}
 		document.getElementById("views_template_" + template).value = default_template;

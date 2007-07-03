@@ -106,14 +106,14 @@ if(!function_exists('get_most_viewed')) {
 					$post_title = get_the_title();
 					$post_views = intval($post->views);
 					$post_views = number_format($post_views);
-					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('Views', 'wp-postviews')."</li>\n";
+					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				}
 			} else {
 				foreach ($most_viewed as $post) {
 					$post_title = get_the_title();
 					$post_views = intval($post->views);
 					$post_views = number_format($post_views);
-					$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views', 'wp-postviews')."</li>\n";
+					$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				}
 			}
 		} else {
@@ -146,14 +146,14 @@ if(!function_exists('get_most_viewed_category')) {
 					$post_title = htmlspecialchars(stripslashes($post->post_title));
 					$post_views = intval($post->views);
 					$post_views = number_format($post_views);
-					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('Views', 'wp-postviews')."</li>\n";
+					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				}
 			} else {
 				foreach ($most_viewed as $post) {
 					$post_title = htmlspecialchars(stripslashes($post->post_title));
 					$post_views = intval($post->views);
 					$post_views = number_format($post_views);
-					$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views', 'wp-postviews')."</li>\n";
+					$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				}
 			}
 		} else {
@@ -186,7 +186,7 @@ function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7, $display =
 			$post_title = get_the_title();
 			$post_views = intval($post->views);
 			$post_views = number_format($post_views);
-			$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views', 'wp-postviews')."</li>";
+			$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('views', 'wp-postviews')."</li>";
 		}
 	} else {
 		$temp = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
@@ -217,7 +217,7 @@ function get_timespan_most_viewed_cat($category_id = 0, $mode = '', $limit = 10,
 			$post_title = get_the_title();
 			$post_views = intval($post->views);
 			$post_views = number_format($post_views);
-			$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('Views', 'wp-postviews')."</li>";
+			$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('views', 'wp-postviews')."</li>";
 		}
 	} else {
 		$temp = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
@@ -342,7 +342,7 @@ function postviews_page_general_stats($content) {
 	if($stats_display['views'] == 1) {
 		$content .= '<p><strong>'.__('WP-PostViews', 'wp-postviews').'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
-		$content .= '<li><strong>'.get_totalviews(false).'</strong> '.__('Views Were Generated.', 'wp-postviews').'</li>'."\n";
+		$content .= '<li><strong>'.get_totalviews(false).'</strong> '.__('views were generated.', 'wp-postviews').'</li>'."\n";
 		$content .= '</ul>'."\n";
 	}
 	return $content;
@@ -369,7 +369,7 @@ function views_init() {
 	// Add Options
 	$views_options = array();
 	$views_options['count'] = 1;
-	$views_options['template'] = __('%VIEW_COUNT% Views', 'wp-postviews');
+	$views_options['template'] = __('%VIEW_COUNT% views', 'wp-postviews');
 	add_option('views_options', $views_options, 'Post Views Options');
 }
 ?>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-PostViews 1.11\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-06-28 16:05+0800\n"
+"PO-Revision-Date: 2007-07-04 01:53+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Lester Chan <gamerz84@hotmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr ""
 
 #: postviews-options.php:116
 #: postviews.php:372
-msgid "%VIEW_COUNT% Views"
+msgid "%VIEW_COUNT% views"
 msgstr ""
 
 #: postviews-options.php:131
@@ -195,7 +195,7 @@ msgstr ""
 #: postviews.php:156
 #: postviews.php:189
 #: postviews.php:220
-msgid "Views"
+msgid "views"
 msgstr ""
 
 #: postviews.php:120
@@ -217,7 +217,7 @@ msgid "Most Viewed Posts"
 msgstr ""
 
 #: postviews.php:345
-msgid "Views Were Generated."
+msgid "views were generated."
 msgstr ""
 
 #: postviews.php:357
