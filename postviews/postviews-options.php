@@ -143,7 +143,7 @@ switch($mode) {
 					<input type="text" id="views_template_template" name="views_template_template" size="70" value="<?php echo htmlspecialchars(stripslashes($views_options['template'])); ?>" /><br />
 						<?php _e('HTML is allowed.', 'wp-postviews'); ?><br />
 						%VIEW_COUNT% - <?php _e('The number of views.', 'wp-postviews'); ?><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-postviews'); ?>" onclick="javascript: views_default_templates('template');" class="button" />
+						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-postviews'); ?>" onclick="views_default_templates('template');" class="button" />
 				</td>
 			</tr>
 		</table>
