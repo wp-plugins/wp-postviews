@@ -24,8 +24,8 @@ It is the exact same readme.html is included in the zip package.
 
 == Screenshots ==
 
-[GaMerZ WordPress Plugins Screenshots](http://www.lesterchan.net/wordpress/screenshots/ "GaMerZ WordPress Plugins Screenshots")
+[WP-PostViews Screenshots](http://www.lesterchan.net/wordpress/screenshots/browse/wp-postviews/ "WP-PostViews Screenshots")
 
 == Frequently Asked Questions ==
 
-You will need [GaMerZ WordPress Plugins Support Forums](http://forums.lesterchan.net/ "GaMerZ WordPress Plugins Support Forums")
+[WP-PostViews Support Forums](http://forums.lesterchan.net/index.php?board=16.0 "WP-PostViews Support Forums")
