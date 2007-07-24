@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WP-PostViews Widget
-Plugin URI: http://www.lesterchan.net/portfolio/programming.php
+Plugin URI: http://lesterchan.net/portfolio/programming.php
 Description: Adds a PostViews Widget to display most viewed posts and/or pages on your sidebar. You will need to activate WP-PostViews first.
 Version: 1.20
 Author: Lester 'GaMerZ' Chan
-Author URI: http://www.lesterchan.net
+Author URI: http://lesterchan.net
 */
 
 

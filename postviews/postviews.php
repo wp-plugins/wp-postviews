@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WP-PostViews
-Plugin URI: http://www.lesterchan.net/portfolio/programming.php
+Plugin URI: http://lesterchan.net/portfolio/programming.php
 Description: Enables you to display how many times a post/page had been viewed. It will not count registered member views, but that can be changed easily.
 Version: 1.20
 Author: Lester 'GaMerZ' Chan
-Author URI: http://www.lesterchan.net
+Author URI: http://lesterchan.net
 */
 
 
