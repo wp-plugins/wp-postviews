@@ -134,12 +134,17 @@ if(!function_exists('get_most_viewed_category')) {
 		global $wpdb, $post;
 		$where = '';
 		$temp = '';
+		if(is_array($category_id)) {
+			$category_sql = "$wpdb->term_relationships.term_taxonomy_id IN (".join(',', $category_id).')';
+		} else {
+			$category_sql = "$wpdb->term_relationships.term_taxonomy_id = $category_id";
+		}
 		if(!empty($mode) && $mode != 'both') {
 			$where = "post_type = '$mode'";
 		} else {
 			$where = '1=1';
 		}
-		$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID LEFT JOIN $wpdb->post2cat ON $wpdb->post2cat.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $wpdb->post2cat.category_id = $category_id AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+		$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID LEFT JOIN $wpdb->term_relationships ON $wpdb->term_relationships.object_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $category_sql AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 		if($most_viewed) {
 			if($chars > 0) {
 				foreach ($most_viewed as $post) {
@@ -206,12 +211,17 @@ function get_timespan_most_viewed_cat($category_id = 0, $mode = '', $limit = 10,
 	$limit_date = date("Y-m-d H:i:s",$limit_date);	
 	$where = '';
 	$temp = '';
+	if(is_array($category_id)) {
+		$category_sql = "$wpdb->term_relationships.term_taxonomy_id IN (".join(',', $category_id).')';
+	} else {
+		$category_sql = "$wpdb->term_relationships.term_taxonomy_id = $category_id";
+	}
 	if(!empty($mode) && $mode != 'both') {
 		$where = "post_type = '$mode'";
 	} else {
 		$where = '1=1';
 	}
-	$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID LEFT JOIN $wpdb->post2cat ON $wpdb->post2cat.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $wpdb->post2cat.category_id = $category_id AND post_date > '".$limit_date."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+	$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID LEFT JOIN $wpdb->term_relationships ON $wpdb->term_relationships.object_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $category_sql AND post_date > '".$limit_date."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 	if($most_viewed) {
 		foreach ($most_viewed as $post) {
 			$post_title = get_the_title();
@@ -283,7 +293,7 @@ function views_where($content) {
 }
 function views_orderby($content) {
 	$orderby = trim(addslashes($_GET['orderby']));
-	if(empty($orderby) && ($orderby != 'asc' || $orderby != 'desc')) {
+	if(empty($orderby) || ($orderby != 'asc' && $orderby != 'desc')) {
 		$orderby = 'desc';
 	}
 	$content = " views $orderby";
@@ -315,9 +325,9 @@ if(strpos(get_option('stats_url'), $_SERVER['REQUEST_URI']) || strpos($_SERVER['
 function postviews_page_admin_general_stats($content) {
 	$stats_display = get_option('stats_display');
 	if($stats_display['views'] == 1) {
-		$content .= '<input type="checkbox" name="stats_display[]" value="views" checked="checked" />&nbsp;&nbsp;'.__('WP-PostViews', 'wp-postviews').'<br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_views" value="views" checked="checked" />&nbsp;&nbsp;<label for="wpstats_views">'.__('WP-PostViews', 'wp-postviews').'</label><br />'."\n";
 	} else {
-		$content .= '<input type="checkbox" name="stats_display[]" value="views" />&nbsp;&nbsp;'.__('WP-PostViews', 'wp-postviews').'<br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_views" value="views" />&nbsp;&nbsp;<label for="wpstats_views">'.__('WP-PostViews', 'wp-postviews').'</label><br />'."\n";
 	}
 	return $content;
 }
@@ -328,9 +338,9 @@ function postviews_page_admin_most_stats($content) {
 	$stats_display = get_option('stats_display');
 	$stats_mostlimit = intval(get_option('stats_mostlimit'));
 	if($stats_display['viewed_most'] == 1) {
-		$content .= '<input type="checkbox" name="stats_display[]" value="viewed_most" checked="checked" />&nbsp;&nbsp;'.$stats_mostlimit.' '.__('Most Viewed Posts', 'wp-postviews').'<br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" checked="checked" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.$stats_mostlimit.' '.__('Most Viewed Posts', 'wp-postviews').'</label><br />'."\n";
 	} else {
-		$content .= '<input type="checkbox" name="stats_display[]" value="viewed_most" />&nbsp;&nbsp;'.$stats_mostlimit.' '.__('Most Viewed Posts', 'wp-postviews').'<br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.$stats_mostlimit.' '.__('Most Viewed Posts', 'wp-postviews').'</label><br />'."\n";
 	}
 	return $content;
 }
