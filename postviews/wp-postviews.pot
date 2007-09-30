@@ -1,0 +1,226 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP-PostViews 1.11\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2007-09-30 16:06+0800\n"
+"Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
+"Language-Team: Lester Chan <gamerz84@hotmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: SINGAPORE\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: postviews-options.php:33
+#: postviews-options.php:152
+msgid "Update Options"
+msgstr ""
+
+#: postviews-options.php:40
+#: postviews-options.php:126
+#: postviews-options.php:128
+msgid "Post Views Options"
+msgstr ""
+
+#: postviews-options.php:45
+msgid "Updated"
+msgstr ""
+
+#: postviews-options.php:50
+msgid "No Post Views Option Updated"
+msgstr ""
+
+#: postviews-options.php:54
+#: postviews-options.php:200
+msgid "UNINSTALL WP-PostViews"
+msgstr ""
+
+#: postviews-options.php:62
+#, php-format
+msgid "Setting Key '%s' has been deleted."
+msgstr ""
+
+#: postviews-options.php:66
+#, php-format
+msgid "Error deleting Setting Key '%s'."
+msgstr ""
+
+#: postviews-options.php:76
+#, php-format
+msgid "Post Meta Key '%s' has been deleted."
+msgstr ""
+
+#: postviews-options.php:80
+#, php-format
+msgid "Error deleting Post Meta Key '%s'."
+msgstr ""
+
+#: postviews-options.php:102
+#: postviews-options.php:160
+msgid "Uninstall WP-PostViews"
+msgstr ""
+
+#: postviews-options.php:103
+#, php-format
+msgid "<a href=\"%s\">Click Here</a> To Finish The Uninstallation And WP-PostViews Will Be Deactivated Automatically."
+msgstr ""
+
+#: postviews-options.php:116
+#: postviews.php:385
+msgid "%VIEW_COUNT% views"
+msgstr ""
+
+#: postviews-options.php:131
+msgid "Count Views From:"
+msgstr ""
+
+#: postviews-options.php:134
+msgid "Everyone"
+msgstr ""
+
+#: postviews-options.php:135
+msgid "Guests Only"
+msgstr ""
+
+#: postviews-options.php:136
+msgid "Registered Users Only"
+msgstr ""
+
+#: postviews-options.php:141
+msgid "Views Template:"
+msgstr ""
+
+#: postviews-options.php:144
+msgid "HTML is allowed."
+msgstr ""
+
+#: postviews-options.php:145
+msgid "The number of views."
+msgstr ""
+
+#: postviews-options.php:146
+msgid "Restore Default Template"
+msgstr ""
+
+#: postviews-options.php:152
+msgid "Cancel"
+msgstr ""
+
+#: postviews-options.php:162
+msgid "Deactivating WP-PostViews plugin does not remove any data that may have been created, such as the views data. To completely remove this plugin, you can uninstall it here."
+msgstr ""
+
+#: postviews-options.php:165
+msgid "WARNING:"
+msgstr ""
+
+#: postviews-options.php:166
+msgid "Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first."
+msgstr ""
+
+#: postviews-options.php:169
+msgid "The following WordPress Options/PostMetas will be DELETED:"
+msgstr ""
+
+#: postviews-options.php:173
+msgid "WordPress Options"
+msgstr ""
+
+#: postviews-options.php:174
+msgid "WordPress PostMetas"
+msgstr ""
+
+#: postviews-options.php:199
+msgid "Yes"
+msgstr ""
+
+#: postviews-options.php:200
+msgid ""
+"You Are About To Uninstall WP-PostViews From WordPress.\\n"
+"This Action Is Not Reversible.\\n"
+"\\n"
+" Choose [Cancel] To Stop, [OK] To Uninstall."
+msgstr ""
+
+#: postviews-widget.php:55
+msgid "Most Viewed"
+msgstr ""
+
+#: postviews-widget.php:65
+msgid "Title"
+msgstr ""
+
+#: postviews-widget.php:68
+msgid "Show Views For: "
+msgstr ""
+
+#: postviews-widget.php:74
+msgid "Post &amp Page"
+msgstr ""
+
+#: postviews-widget.php:79
+msgid "Post"
+msgstr ""
+
+#: postviews-widget.php:84
+msgid "Page"
+msgstr ""
+
+#: postviews-widget.php:87
+msgid "Only"
+msgstr ""
+
+#: postviews-widget.php:90
+msgid "Limit"
+msgstr ""
+
+#: postviews-widget.php:93
+msgid "Post Title Length (Characters)"
+msgstr ""
+
+#: postviews-widget.php:95
+msgid "(<strong>0</strong> to disable)"
+msgstr ""
+
+#: postviews.php:42
+msgid "Post Views"
+msgstr ""
+
+#: postviews.php:112
+#: postviews.php:119
+#: postviews.php:157
+#: postviews.php:164
+#: postviews.php:197
+#: postviews.php:233
+msgid "views"
+msgstr ""
+
+#: postviews.php:123
+#: postviews.php:168
+#: postviews.php:200
+#: postviews.php:236
+msgid "N/A"
+msgstr ""
+
+#: postviews.php:331
+#: postviews.php:333
+#: postviews.php:356
+msgid "WP-PostViews"
+msgstr ""
+
+#: postviews.php:344
+#: postviews.php:346
+msgid "Most Viewed Posts"
+msgstr ""
+
+#: postviews.php:358
+msgid "views were generated."
+msgstr ""
+
+#: postviews.php:370
+msgid "Most Viewed Post"
+msgstr ""
+
