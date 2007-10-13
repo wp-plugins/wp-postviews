@@ -3,7 +3,7 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://lesterchan.net/portfolio/programming.php
 Description: Enables you to display how many times a post/page had been viewed. It will not count registered member views, but that can be changed easily.
-Version: 1.20
+Version: 1.21
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 */
@@ -82,7 +82,7 @@ function process_postviews() {
 function the_views($display = true) {
 	$post_views = intval(post_custom('views'));
 	$views_options = get_option('views_options');
-	$output = str_replace('%VIEW_COUNT%', number_format($post_views), $views_options['template']);
+	$output = str_replace('%VIEW_COUNT%', number_format_i18n($post_views), $views_options['template']);
 	if($display) {
 		echo $output;
 	} else {
@@ -108,14 +108,14 @@ if(!function_exists('get_most_viewed')) {
 				foreach ($most_viewed as $post) {
 					$post_title = get_the_title();
 					$post_views = intval($post->views);
-					$post_views = number_format($post_views);
+					$post_views = number_format_i18n($post_views);
 					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				}
 			} else {
 				foreach ($most_viewed as $post) {
 					$post_title = get_the_title();
 					$post_views = intval($post->views);
-					$post_views = number_format($post_views);
+					$post_views = number_format_i18n($post_views);
 					$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				}
 			}
@@ -153,14 +153,14 @@ if(!function_exists('get_most_viewed_category')) {
 				foreach ($most_viewed as $post) {
 					$post_title = htmlspecialchars(stripslashes($post->post_title));
 					$post_views = intval($post->views);
-					$post_views = number_format($post_views);
+					$post_views = number_format_i18n($post_views);
 					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				}
 			} else {
 				foreach ($most_viewed as $post) {
 					$post_title = htmlspecialchars(stripslashes($post->post_title));
 					$post_views = intval($post->views);
-					$post_views = number_format($post_views);
+					$post_views = number_format_i18n($post_views);
 					$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				}
 			}
@@ -193,7 +193,7 @@ function get_timespan_most_viewed($mode = '', $limit = 10, $days = 7, $display =
 		foreach ($most_viewed as $post) {
 			$post_title = get_the_title();
 			$post_views = intval($post->views);
-			$post_views = number_format($post_views);
+			$post_views = number_format_i18n($post_views);
 			$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('views', 'wp-postviews')."</li>";
 		}
 	} else {
@@ -229,7 +229,7 @@ function get_timespan_most_viewed_cat($category_id = 0, $mode = '', $limit = 10,
 		foreach ($most_viewed as $post) {
 			$post_title = get_the_title();
 			$post_views = intval($post->views);
-			$post_views = number_format($post_views);
+			$post_views = number_format_i18n($post_views);
 			$temp .= "<li><a href=\"".get_permalink()."\">$post_title</a> - $post_views ".__('views', 'wp-postviews')."</li>";
 		}
 	} else {
@@ -249,9 +249,9 @@ if(!function_exists('get_totalviews')) {
 		global $wpdb;
 		$total_views = $wpdb->get_var("SELECT SUM(meta_value+0) FROM $wpdb->postmeta WHERE meta_key = 'views'");
 		if($display) {
-			echo number_format($total_views);
+			echo number_format_i18n($total_views);
 		} else {
-			return number_format($total_views);
+			return number_format_i18n($total_views);
 		}
 	}
 }
