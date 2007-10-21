@@ -3,7 +3,7 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://lesterchan.net/portfolio/programming.php
 Description: Enables you to display how many times a post/page had been viewed. It will not count registered member views, but that can be changed easily.
-Version: 1.21
+Version: 1.30
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 */
@@ -31,7 +31,7 @@ Author URI: http://lesterchan.net
 ### Create Text Domain For Translations
 add_action('init', 'postviews_textdomain');
 function postviews_textdomain() {
-	load_plugin_textdomain('wp-postviews', 'wp-content/plugins/postviews');
+	load_plugin_textdomain('wp-postviews', 'wp-content/plugins/wp-postviews');
 }
 
 
@@ -39,7 +39,7 @@ function postviews_textdomain() {
 add_action('admin_menu', 'postviews_menu');
 function postviews_menu() {
 	if (function_exists('add_options_page')) {
-		add_options_page(__('Post Views', 'wp-postviews'), __('Post Views', 'wp-postviews'), 'manage_options', 'postviews/postviews-options.php') ;
+		add_options_page(__('Post Views', 'wp-postviews'), __('Post Views', 'wp-postviews'), 'manage_options', 'wp-postviews/postviews-options.php') ;
 	}
 }
 
@@ -377,7 +377,7 @@ function postviews_page_most_stats($content) {
 
 
 ### Function: Post Views Options
-add_action('activate_postviews/postviews.php', 'views_init');
+add_action('activate_wp-postviews/wp-postviews.php', 'views_init');
 function views_init() {
 	// Add Options
 	$views_options = array();
