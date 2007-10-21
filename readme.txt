@@ -9,8 +9,6 @@ Enables you to display how many times a post/page had been viewed.
 
 == Description ==
 
-It will not count registered member views, but that can be changed easily.
-
 All the information (general, changelog, installation, upgrade, usage) you need about this plugin can be found here: [WP-PostViews Readme](http://lesterchan.net/wordpress/readme/wp-postviews.html "WP-PostViews Readme").
 It is the exact same readme.html is included in the zip package.
 
