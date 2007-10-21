@@ -316,7 +316,7 @@ if($_GET['sortby'] == 'views') {
 
 
 ### Function: Plug Into WP-Stats
-if(strpos(get_option('stats_url'), $_SERVER['REQUEST_URI']) || strpos($_SERVER['REQUEST_URI'], 'stats-options.php') || strpos($_SERVER['REQUEST_URI'], 'stats/stats.php')) {
+if(strpos(get_option('stats_url'), $_SERVER['REQUEST_URI']) || strpos($_SERVER['REQUEST_URI'], 'stats-options.php') || strpos($_SERVER['REQUEST_URI'], 'wp-stats/wp-stats.php')) {
 	add_filter('wp_stats_page_admin_plugins', 'postviews_page_admin_general_stats');
 	add_filter('wp_stats_page_admin_most', 'postviews_page_admin_most_stats');
 	add_filter('wp_stats_page_plugins', 'postviews_page_general_stats');
