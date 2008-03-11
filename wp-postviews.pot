@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-PostViews 1.30\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-10-21 22:57+0800\n"
+"PO-Revision-Date: 2008-03-11 21:51+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
 "Language-Team: Lester Chan <gamerz84@hotmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgid "<a href=\"%s\">Click Here</a> To Finish The Uninstallation And WP-PostVie
 msgstr ""
 
 #: postviews-options.php:117
-#: wp-postviews.php:385
+#: wp-postviews.php:378
 msgid "%VIEW_COUNT% views"
 msgstr ""
 
@@ -185,38 +185,38 @@ msgstr ""
 msgid "Post Views"
 msgstr ""
 
-#: wp-postviews.php:112
-#: wp-postviews.php:119
-#: wp-postviews.php:157
-#: wp-postviews.php:164
-#: wp-postviews.php:197
-#: wp-postviews.php:233
+#: wp-postviews.php:113
+#: wp-postviews.php:120
+#: wp-postviews.php:158
+#: wp-postviews.php:165
+#: wp-postviews.php:198
+#: wp-postviews.php:234
 msgid "views"
 msgstr ""
 
-#: wp-postviews.php:123
-#: wp-postviews.php:168
-#: wp-postviews.php:200
-#: wp-postviews.php:236
+#: wp-postviews.php:124
+#: wp-postviews.php:169
+#: wp-postviews.php:201
+#: wp-postviews.php:237
 msgid "N/A"
 msgstr ""
 
-#: wp-postviews.php:331
-#: wp-postviews.php:333
-#: wp-postviews.php:356
+#: wp-postviews.php:324
+#: wp-postviews.php:326
+#: wp-postviews.php:349
 msgid "WP-PostViews"
 msgstr ""
 
-#: wp-postviews.php:344
-#: wp-postviews.php:346
+#: wp-postviews.php:337
+#: wp-postviews.php:339
 msgid "Most Viewed Posts"
 msgstr ""
 
-#: wp-postviews.php:358
+#: wp-postviews.php:351
 msgid "views were generated."
 msgstr ""
 
-#: wp-postviews.php:370
+#: wp-postviews.php:363
 msgid "Most Viewed Post"
 msgstr ""
 

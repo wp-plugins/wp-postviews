@@ -47,7 +47,8 @@ function postviews_menu() {
 ### Function: Calculate Post Views
 add_action('loop_start', 'process_postviews');
 function process_postviews() {
-	global $id, $user_ID;
+	global $id, $user_ID, $post_meta_cache;
+	unset($post_meta_cache[$id]);
 	$views_options = get_option('views_options');
 	$post_views = get_post_custom($post_id);
 	$post_views = intval($post_views['views'][0]);
@@ -109,7 +110,7 @@ if(!function_exists('get_most_viewed')) {
 					$post_title = get_the_title();
 					$post_views = intval($post->views);
 					$post_views = number_format_i18n($post_views);
-					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
+					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				}
 			} else {
 				foreach ($most_viewed as $post) {
@@ -138,23 +139,23 @@ if(!function_exists('get_most_viewed_category')) {
 		$where = '';
 		$temp = '';
 		if(is_array($category_id)) {
-			$category_sql = "$wpdb->term_relationships.term_taxonomy_id IN (".join(',', $category_id).')';
+			$category_sql = "$wpdb->term_taxonomy.term_id IN (".join(',', $category_id).')';
 		} else {
-			$category_sql = "$wpdb->term_relationships.term_taxonomy_id = $category_id";
+			$category_sql = "$wpdb->term_taxonomy.term_id = $category_id";
 		}
 		if(!empty($mode) && $mode != 'both') {
 			$where = "post_type = '$mode'";
 		} else {
 			$where = '1=1';
 		}
-		$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID LEFT JOIN $wpdb->term_relationships ON $wpdb->term_relationships.object_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $category_sql AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+		$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID INNER JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id) INNER JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id) WHERE post_date < '".current_time('mysql')."' AND $wpdb->term_taxonomy.taxonomy = 'category' AND $category_sql AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 		if($most_viewed) {
 			if($chars > 0) {
 				foreach ($most_viewed as $post) {
 					$post_title = htmlspecialchars(stripslashes($post->post_title));
 					$post_views = intval($post->views);
 					$post_views = number_format_i18n($post_views);
-					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_chars($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
+					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				}
 			} else {
 				foreach ($most_viewed as $post) {
@@ -215,16 +216,16 @@ function get_timespan_most_viewed_cat($category_id = 0, $mode = '', $limit = 10,
 	$where = '';
 	$temp = '';
 	if(is_array($category_id)) {
-		$category_sql = "$wpdb->term_relationships.term_taxonomy_id IN (".join(',', $category_id).')';
+		$category_sql = "$wpdb->term_taxonomy.term_id IN (".join(',', $category_id).')';
 	} else {
-		$category_sql = "$wpdb->term_relationships.term_taxonomy_id = $category_id";
+		$category_sql = "$wpdb->term_taxonomy.term_id = $category_id";
 	}
 	if(!empty($mode) && $mode != 'both') {
 		$where = "post_type = '$mode'";
 	} else {
 		$where = '1=1';
 	}
-	$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID LEFT JOIN $wpdb->term_relationships ON $wpdb->term_relationships.object_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $category_sql AND post_date > '".$limit_date."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+	$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID INNER JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id) INNER JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id) WHERE post_date < '".current_time('mysql')."' AND $wpdb->term_taxonomy.taxonomy = 'category' AND $category_sql AND post_date > '".$limit_date."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
 	if($most_viewed) {
 		foreach ($most_viewed as $post) {
 			$post_title = get_the_title();
@@ -258,23 +259,15 @@ if(!function_exists('get_totalviews')) {
 
 
 ### Function: Snippet Text
-if(!function_exists('snippet_chars')) {
-	function snippet_chars($text, $length = 0) {
-		$text = htmlspecialchars_decode($text);
-		 if (strlen($text) > $length){       
-			return htmlspecialchars(substr($text,0,$length)).'...';             
+if(!function_exists('snippet_text')) {
+	function snippet_text($text, $length = 0) {
+		$text = html_entity_decode($text, ENT_QUOTES, get_option('blog_charset'));
+		 if (strlen($text) > $length) {
+			return htmlentities(substr($text,0,$length), ENT_COMPAT, get_option('blog_charset')).'...';
 		 } else {
-			return htmlspecialchars($text);
+			return htmlentities($text, ENT_COMPAT, get_option('blog_charset'));
 		 }
 	}
-}
-
-
-### Function: HTML Special Chars Decode
-if (!function_exists('htmlspecialchars_decode')) {
-   function htmlspecialchars_decode($text) {
-       return strtr($text, array_flip(get_html_translation_table(HTML_SPECIALCHARS)));
-   }
 }
 
 
