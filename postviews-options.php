@@ -2,8 +2,8 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.1 Plugin: WP-PostViews 1.30									|
-|	Copyright (c) 2007 Lester "GaMerZ" Chan									|
+|	WordPress 2.5 Plugin: WP-PostViews 1.30									|
+|	Copyright (c) 2008 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
 |	- Lester "GaMerZ" Chan															|
@@ -125,38 +125,33 @@ switch($mode) {
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
 <div class="wrap"> 
 	<h2><?php _e('Post Views Options', 'wp-postviews'); ?></h2>
+	<table class="form-table">
+		 <tr>
+			<th scope="row" valign="top"><?php _e('Count Views From:', 'wp-postviews'); ?></th>
+			<td>
+				<select name="views_count" size="1">
+					<option value="0"<?php selected('0', $views_options['count']); ?>><?php _e('Everyone', 'wp-postviews'); ?></option>
+					<option value="1"<?php selected('1', $views_options['count']); ?>><?php _e('Guests Only', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['count']); ?>><?php _e('Registered Users Only', 'wp-postviews'); ?></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row" valign="top"><?php _e('Views Template:', 'wp-postviews'); ?></th>
+			<td>
+				<input type="text" id="views_template_template" name="views_template_template" size="70" value="<?php echo htmlspecialchars(stripslashes($views_options['template'])); ?>" /><br />
+					<?php _e('HTML is allowed.', 'wp-postviews'); ?><br />
+					%VIEW_COUNT% - <?php _e('The number of views.', 'wp-postviews'); ?><br />
+					<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-postviews'); ?>" onclick="views_default_templates('template');" class="button" />
+			</td>
+		</tr>
+	</table>
 	<p class="submit">
-		<input type="submit" name="Submit" class="button" value="<?php _e('Update Options &raquo;', 'wp-postviews'); ?>" />
-	</p>
-	<fieldset class="options">
-		<legend><?php _e('Post Views Options', 'wp-postviews'); ?></legend>
-		<table width="100%"  border="0" cellspacing="3" cellpadding="3">
-			 <tr valign="top">
-				<th align="left" width="30%"><?php _e('Count Views From:', 'wp-postviews'); ?></th>
-				<td align="left">
-					<select name="views_count" size="1">
-						<option value="0"<?php selected('0', $views_options['count']); ?>><?php _e('Everyone', 'wp-postviews'); ?></option>
-						<option value="1"<?php selected('1', $views_options['count']); ?>><?php _e('Guests Only', 'wp-postviews'); ?></option>
-						<option value="2"<?php selected('2', $views_options['count']); ?>><?php _e('Registered Users Only', 'wp-postviews'); ?></option>
-					</select>
-				</td>
-			</tr>
-			<tr valign="top">
-				<th align="left" width="30%"><?php _e('Views Template:', 'wp-postviews'); ?></th>
-				<td align="left">
-					<input type="text" id="views_template_template" name="views_template_template" size="70" value="<?php echo htmlspecialchars(stripslashes($views_options['template'])); ?>" /><br />
-						<?php _e('HTML is allowed.', 'wp-postviews'); ?><br />
-						%VIEW_COUNT% - <?php _e('The number of views.', 'wp-postviews'); ?><br />
-						<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-postviews'); ?>" onclick="views_default_templates('template');" class="button" />
-				</td>
-			</tr>
-		</table>
-	</fieldset>
-	<p class="submit">
-		<input type="submit" name="Submit" class="button" value="<?php _e('Update Options &raquo;', 'wp-postviews'); ?>" />
+		<input type="submit" name="Submit" class="button" value="<?php _e('Save Changes', 'wp-postviews'); ?>" />
 	</p>
 </div>
 </form> 
+<p>&nbsp;</p>
 
 <!-- Uninstall WP-PostViews -->
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
@@ -172,13 +167,15 @@ switch($mode) {
 	<p style="text-align: left; color: red">
 		<strong><?php _e('The following WordPress Options/PostMetas will be DELETED:', 'wp-postviews'); ?></strong><br />
 	</p>
-	<table width="70%"  border="0" cellspacing="3" cellpadding="3">
-		<tr class="thead">
-			<td align="center"><strong><?php _e('WordPress Options', 'wp-postviews'); ?></strong></td>
-			<td align="center"><strong><?php _e('WordPress PostMetas', 'wp-postviews'); ?></strong></td>
-		</tr>
+	<table class="widefat">
+		<thead>
+			<tr>
+				<th><?php _e('WordPress Options', 'wp-postviews'); ?></th>
+				<th><?php _e('WordPress PostMetas', 'wp-postviews'); ?></th>
+			</tr>
+		</thead>
 		<tr>
-			<td valign="top" style="background-color: #eee;">
+			<td valign="top">
 				<ol>
 				<?php
 					foreach($views_settings as $settings) {
@@ -187,7 +184,7 @@ switch($mode) {
 				?>
 				</ol>
 			</td>
-			<td valign="top" style="background-color: #eee;">
+			<td valign="top" class="alternate">
 				<ol>
 				<?php
 					foreach($views_postmetas as $postmeta) {

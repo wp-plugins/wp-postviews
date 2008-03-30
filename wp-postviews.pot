@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-PostViews 1.30\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2008-03-11 21:51+0800\n"
+"PO-Revision-Date: 2008-03-30 18:44+0800\n"
 "Last-Translator: Lester 'GaMerZ' Chan <gamerz84@hotmail.com>\n"
-"Language-Team: Lester Chan <gamerz84@hotmail.com>\n"
+"Language-Team: Lester Chan <lesterchan@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,7 +16,6 @@ msgstr ""
 
 #: postviews-options.php:38
 #: postviews-options.php:127
-#: postviews-options.php:132
 msgid "Post Views Options"
 msgstr ""
 
@@ -29,7 +28,7 @@ msgid "No Post Views Option Updated"
 msgstr ""
 
 #: postviews-options.php:55
-#: postviews-options.php:204
+#: postviews-options.php:201
 msgid "UNINSTALL WP-PostViews"
 msgstr ""
 
@@ -54,7 +53,7 @@ msgid "Error deleting Post Meta Key '%s'."
 msgstr ""
 
 #: postviews-options.php:103
-#: postviews-options.php:164
+#: postviews-options.php:159
 msgid "Uninstall WP-PostViews"
 msgstr ""
 
@@ -68,72 +67,71 @@ msgstr ""
 msgid "%VIEW_COUNT% views"
 msgstr ""
 
-#: postviews-options.php:129
-#: postviews-options.php:156
-msgid "Update Options &raquo;"
-msgstr ""
-
-#: postviews-options.php:135
+#: postviews-options.php:130
 msgid "Count Views From:"
 msgstr ""
 
-#: postviews-options.php:138
+#: postviews-options.php:133
 msgid "Everyone"
 msgstr ""
 
-#: postviews-options.php:139
+#: postviews-options.php:134
 msgid "Guests Only"
 msgstr ""
 
-#: postviews-options.php:140
+#: postviews-options.php:135
 msgid "Registered Users Only"
 msgstr ""
 
-#: postviews-options.php:145
+#: postviews-options.php:140
 msgid "Views Template:"
 msgstr ""
 
-#: postviews-options.php:148
+#: postviews-options.php:143
 msgid "HTML is allowed."
 msgstr ""
 
-#: postviews-options.php:149
+#: postviews-options.php:144
 msgid "The number of views."
 msgstr ""
 
-#: postviews-options.php:150
+#: postviews-options.php:145
 msgid "Restore Default Template"
 msgstr ""
 
-#: postviews-options.php:166
+#: postviews-options.php:150
+msgid "Save Changes"
+msgstr ""
+
+#: postviews-options.php:161
 msgid "Deactivating WP-PostViews plugin does not remove any data that may have been created, such as the views data. To completely remove this plugin, you can uninstall it here."
 msgstr ""
 
-#: postviews-options.php:169
+#: postviews-options.php:164
 msgid "WARNING:"
 msgstr ""
 
-#: postviews-options.php:170
+#: postviews-options.php:165
 msgid "Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first."
 msgstr ""
 
-#: postviews-options.php:173
+#: postviews-options.php:168
 msgid "The following WordPress Options/PostMetas will be DELETED:"
 msgstr ""
 
-#: postviews-options.php:177
+#: postviews-options.php:173
 msgid "WordPress Options"
 msgstr ""
 
-#: postviews-options.php:178
+#: postviews-options.php:174
 msgid "WordPress PostMetas"
 msgstr ""
 
-#: postviews-options.php:203
+#: postviews-options.php:200
 msgid "Yes"
 msgstr ""
 
-#: postviews-options.php:204
+#: postviews-options.php:201
 msgid ""
 "You Are About To Uninstall WP-PostViews From WordPress.\\n"
 "This Action Is Not Reversible.\\n"
