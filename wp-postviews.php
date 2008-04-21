@@ -58,7 +58,7 @@ function process_postviews() {
 			$should_count = true;
 			break;
 		case 1:
-			if(empty($_COOKIE[USER_COOKIE])) {
+			if(empty($_COOKIE[USER_COOKIE]) && intval($user_ID) == 0) {
 				$should_count = true;
 			}
 			break;
