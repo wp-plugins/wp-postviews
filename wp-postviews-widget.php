@@ -52,7 +52,7 @@ function widget_views_init() {
 	function widget_views_most_viewed_options() {
 		$options = get_option('widget_views_most_viewed');
 		if (!is_array($options)) {
-			$options = array('title' => __('Most Viewed', 'wp-postviews'), 'mode' => 'post', 'limit' => 10, 'chars' => 200);
+			$options = array('title' => __('Most Viewed', 'wp-postviews'), 'mode' => 'post', 'limit' => 10, 'chars' => 0);
 		}
 		if ($_POST['most_viewed-submit']) {
 			$options['title'] = strip_tags(addslashes($_POST['most_viewed-title']));

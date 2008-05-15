@@ -31,7 +31,9 @@ $views_postmetas = array('views');
 if(!empty($_POST['Submit'])) {
 	$views_options = array();
 	$views_options['count'] = intval($_POST['views_count']);
-	$views_options['template'] =  addslashes(trim($_POST['views_template_template']));
+	$views_options['exclude_bots'] = intval($_POST['views_exclude_bots']);
+	$views_options['template'] =  trim($_POST['views_template_template']);
+	$views_options['most_viewed_template'] =  trim($_POST['views_template_most_viewed']);
 	$update_views_queries = array();
 	$update_views_text = array();
 	$update_views_queries[] = update_option('views_options', $views_options);
@@ -116,6 +118,9 @@ switch($mode) {
 			case 'template':
 				default_template = "<?php _e('%VIEW_COUNT% views', 'wp-postviews'); ?>";
 				break;
+			case 'most_viewed':
+				default_template = "<li><a href=\"%POST_URL%\"  title=\"%POST_TITLE%\">%POST_TITLE%</a> - %VIEW_COUNT% <?php _e('views', 'wp-postviews'); ?></li>";
+				break;
 		}
 		document.getElementById("views_template_" + template).value = default_template;
 	}
@@ -127,8 +132,8 @@ switch($mode) {
 	<h2><?php _e('Post Views Options', 'wp-postviews'); ?></h2>
 	<table class="form-table">
 		 <tr>
-			<th scope="row" valign="top"><?php _e('Count Views From:', 'wp-postviews'); ?></th>
-			<td>
+			<td valign="top" width="30%"><strong><?php _e('Count Views From:', 'wp-postviews'); ?></strong></td>
+			<td valign="top">
 				<select name="views_count" size="1">
 					<option value="0"<?php selected('0', $views_options['count']); ?>><?php _e('Everyone', 'wp-postviews'); ?></option>
 					<option value="1"<?php selected('1', $views_options['count']); ?>><?php _e('Guests Only', 'wp-postviews'); ?></option>
@@ -136,13 +141,39 @@ switch($mode) {
 				</select>
 			</td>
 		</tr>
+		 <tr>
+			<td valign="top" width="30%"><strong><?php _e('Exclude Bot Views:', 'wp-postviews'); ?></strong></td>
+			<td valign="top">
+				<select name="views_exclude_bots" size="1">
+					<option value="0"<?php selected('0', $views_options['exclude_bots']); ?>><?php _e('No', 'wp-postviews'); ?></option>
+					<option value="1"<?php selected('1', $views_options['exclude_bots']); ?>><?php _e('Yes', 'wp-postviews'); ?></option>
+				</select>
+			</td>
+		</tr>
 		<tr>
-			<th scope="row" valign="top"><?php _e('Views Template:', 'wp-postviews'); ?></th>
-			<td>
-				<input type="text" id="views_template_template" name="views_template_template" size="70" value="<?php echo htmlspecialchars(stripslashes($views_options['template'])); ?>" /><br />
-					<?php _e('HTML is allowed.', 'wp-postviews'); ?><br />
-					%VIEW_COUNT% - <?php _e('The number of views.', 'wp-postviews'); ?><br />
-					<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-postviews'); ?>" onclick="views_default_templates('template');" class="button" />
+			<td valign="top">
+				<strong><?php _e('Views Template:', 'wp-postviews'); ?></strong><br /><br />
+				<?php _e('Allowed Variables:', 'wp-postviews'); ?><br />
+				- %VIEW_COUNT%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-postviews'); ?>" onclick="views_default_templates('template');" class="button" />
+			</td>
+			<td valign="top">
+				<input type="text" id="views_template_template" name="views_template_template" size="70" value="<?php echo htmlspecialchars(stripslashes($views_options['template'])); ?>" />
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">
+				<strong><?php _e('Most Viewed Template:', 'wp-postviews'); ?></strong><br /><br />
+				<?php _e('Allowed Variables:', 'wp-postviews'); ?><br />
+				- %VIEW_COUNT%<br />
+				- %POST_TITLE%<br />
+				- %POST_EXCERPT%<br />
+				- %POST_CONTENT%<br />
+				- %POST_URL%<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'wp-postviews'); ?>" onclick="views_default_templates('most_viewed');" class="button" />
+			</td>
+			<td valign="top">
+				<textarea cols="80" rows="15"  id="views_template_most_viewed" name="views_template_most_viewed"><?php echo htmlspecialchars(stripslashes($views_options['most_viewed_template'])); ?></textarea>
 			</td>
 		</tr>
 	</table>
