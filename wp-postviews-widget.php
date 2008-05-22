@@ -38,7 +38,7 @@ function widget_views_init() {
 	function widget_views_most_viewed($args) {
 		extract($args);
 		$options = get_option('widget_views_most_viewed');
-		$title = htmlspecialchars($options['title']);		
+		$title = htmlspecialchars(stripslashes($options['title']));		
 		if (function_exists('get_most_viewed')) {
 			echo $before_widget.$before_title.$title.$after_title;
 			echo '<ul>'."\n";
@@ -55,8 +55,8 @@ function widget_views_init() {
 			$options = array('title' => __('Most Viewed', 'wp-postviews'), 'mode' => 'post', 'limit' => 10, 'chars' => 0);
 		}
 		if ($_POST['most_viewed-submit']) {
-			$options['title'] = strip_tags(addslashes($_POST['most_viewed-title']));
-			$options['mode'] = strip_tags(addslashes($_POST['most_viewed-mode']));
+			$options['title'] = strip_tags($_POST['most_viewed-title']);
+			$options['mode'] = strip_tags($_POST['most_viewed-mode']);
 			$options['limit'] = intval($_POST['most_viewed-limit']);
 			$options['chars'] = intval($_POST['most_viewed-chars']);
 			update_option('widget_views_most_viewed', $options);
