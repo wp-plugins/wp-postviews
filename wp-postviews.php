@@ -195,7 +195,7 @@ if(!function_exists('get_most_viewed_category')) {
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password);
 				$post_content = get_the_content();
 				if($chars > 0) {				
-					$temp .= "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
+					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
 				} else {
 					$temp = stripslashes($views_options['most_viewed_template']);
 					$temp = str_replace("%VIEW_COUNT%", $post_views, $temp);
@@ -287,14 +287,12 @@ function views_orderby($content) {
 
 
 ### Process The Sorting
-/*
 if($_GET['sortby'] == 'views') {
 	add_filter('posts_fields', 'views_fields');
 	add_filter('posts_join', 'views_join');
 	add_filter('posts_where', 'views_where');
 	add_filter('posts_orderby', 'views_orderby');
 }
-*/
 
 
 ### Function: Plug Into WP-Stats
