@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-PostViews 1.30\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-09 19:47+0800\n"
-"PO-Revision-Date: 2008-06-09 19:47+0800\n"
+"POT-Creation-Date: 2008-06-25 14:16+0800\n"
+"PO-Revision-Date: 2008-06-25 14:16+0800\n"
 "Last-Translator: Lester Chan <lesterchan@gmail.com>\n"
 "Language-Team: Lester Chan <lesterchan@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -171,15 +171,15 @@ msgid "Show Views For: "
 msgstr ""
 
 #: wp-postviews-widget.php:74
-msgid "Post &amp Page"
+msgid "Posts &amp Pages"
 msgstr ""
 
 #: wp-postviews-widget.php:79
-msgid "Post"
+msgid "Posts"
 msgstr ""
 
 #: wp-postviews-widget.php:84
-msgid "Page"
+msgid "Pages"
 msgstr ""
 
 #: wp-postviews-widget.php:87
