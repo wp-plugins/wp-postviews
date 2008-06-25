@@ -71,7 +71,7 @@ function widget_views_init() {
 		echo '<option value="both"';
 		selected('both', $options['mode']);
 		echo '>';
-		_e('Posts &amp Pages', 'wp-postviews');
+		_e('Posts &amp; Pages', 'wp-postviews');
 		echo '</option>'."\n";
 		echo '<option value="post"';
 		selected('post', $options['mode']);
