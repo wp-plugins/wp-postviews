@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP-PostViews 1.30\n"
+"Project-Id-Version: WP-PostViews 1.31\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-25 14:21+0800\n"
-"PO-Revision-Date: 2008-06-25 14:21+0800\n"
+"POT-Creation-Date: 2008-07-03 01:14+0800\n"
+"PO-Revision-Date: 2008-07-03 01:14+0800\n"
 "Last-Translator: Lester Chan <lesterchan@gmail.com>\n"
 "Language-Team: Lester Chan <lesterchan@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -64,14 +64,14 @@ msgid "<a href=\"%s\">Click Here</a> To Finish The Uninstallation And WP-PostVie
 msgstr ""
 
 #: postviews-options.php:119
-#: wp-postviews.php:379
+#: wp-postviews.php:403
 msgid "%VIEW_COUNT% views"
 msgstr ""
 
 #: postviews-options.php:122
-#: wp-postviews.php:147
-#: wp-postviews.php:196
-#: wp-postviews.php:380
+#: wp-postviews.php:171
+#: wp-postviews.php:220
+#: wp-postviews.php:404
 msgid "views"
 msgstr ""
 
@@ -198,35 +198,35 @@ msgstr ""
 msgid "(<strong>0</strong> to disable)"
 msgstr ""
 
-#: wp-postviews.php:48
+#: wp-postviews.php:72
 msgid "Post Views"
 msgstr ""
 
-#: wp-postviews.php:159
-#: wp-postviews.php:208
+#: wp-postviews.php:183
+#: wp-postviews.php:232
 msgid "N/A"
 msgstr ""
 
-#: wp-postviews.php:250
+#: wp-postviews.php:274
 msgid "There is no excerpt because this is a protected post."
 msgstr ""
 
-#: wp-postviews.php:309
-#: wp-postviews.php:311
-#: wp-postviews.php:334
+#: wp-postviews.php:333
+#: wp-postviews.php:335
+#: wp-postviews.php:358
 msgid "WP-PostViews"
 msgstr ""
 
-#: wp-postviews.php:322
-#: wp-postviews.php:324
+#: wp-postviews.php:346
+#: wp-postviews.php:348
 msgid "Most Viewed Posts"
 msgstr ""
 
-#: wp-postviews.php:336
+#: wp-postviews.php:360
 msgid "views were generated."
 msgstr ""
 
-#: wp-postviews.php:348
+#: wp-postviews.php:372
 msgid "Most Viewed Post"
 msgstr ""
 
