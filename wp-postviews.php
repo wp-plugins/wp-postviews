@@ -381,7 +381,7 @@ function postviews_page_most_stats($content) {
 	$stats_display = get_option('stats_display');
 	$stats_mostlimit = intval(get_option('stats_mostlimit'));
 	if($stats_display['viewed_most'] == 1) {
-		$content .= '<p><strong>'.$stats_mostlimit.' '.__('Most Viewed Post', 'wp-postviews').'</strong></p>'."\n";
+		$content .= '<p><strong>'.$stats_mostlimit.' '.__('Most Viewed Posts', 'wp-postviews').'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
 		$content .= get_most_viewed('post', $stats_mostlimit, 0, false);
 		$content .= '</ul>'."\n";
