@@ -284,6 +284,8 @@
 					<strong>Version 1.31 (01-08-2008)</strong>
 					<ul>
 						<li>NEW: Works For WordPress 2.6</li>
+						<li>NEW: Renamed GET Variables sortby To v_sortby And orderby To v_orderby</li>
+						<li>FIXED: Able To Use v_sortby And v_orderby in query_posts()</li>
 					</ul>
 				</li>
 				<li>
@@ -478,6 +480,20 @@
 						The <strong>second value</strong> you pass in is what you want to get, 'post', 'page' or 'both'.<br />
 						The <strong>third value</strong> you pass in is the maximum number of post you want to get.</p>
 					<p>Default: get_most_viewed_category(1, 'both', 10);</p>
+				</li>
+				<li>
+					To Sort <strong>Most/Least Viewed Posts</strong>
+				</li>
+				<li>
+					You can use:
+					<blockquote>
+						&lt;?php query_posts('v_sortby=views&amp;v_orderby=desc') ?&gt;
+					</blockquote>
+					<p>Or pass in the variables to the URL:</p>
+					<blockquote>
+						http://yoursite.com/?v_sortby=views&amp;v_orderby=desc
+					</blockquote>
+					<p>You can replace <strong>desc</strong> with <strong>asc</strong> if you want the least viewed posts.</p>
 				</li>
 			</ul>
 		</div>

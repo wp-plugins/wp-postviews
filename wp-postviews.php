@@ -30,7 +30,7 @@ Author URI: http://lesterchan.net
 
 ### Load WP-Config File If This File Is Called Directly
 if (!function_exists('add_action')) {
-	$wp_root = dirname(dirname(dirname(dirname(__FILE__))));
+	$wp_root = '../../..';
 	if (file_exists($wp_root.'/wp-load.php')) {
 		require_once($wp_root.'/wp-load.php');
 	} else {
@@ -299,7 +299,7 @@ function views_where($content) {
 	return $content;
 }
 function views_orderby($content) {
-	$orderby = trim(addslashes($_GET['orderby']));
+	$orderby = trim(addslashes(get_query_var('v_orderby')));
 	if(empty($orderby) || ($orderby != 'asc' && $orderby != 'desc')) {
 		$orderby = 'desc';
 	}
@@ -308,12 +308,24 @@ function views_orderby($content) {
 }
 
 
-### Process The Sorting
-if($_GET['sortby'] == 'views') {
-	add_filter('posts_fields', 'views_fields');
-	add_filter('posts_join', 'views_join');
-	add_filter('posts_where', 'views_where');
-	add_filter('posts_orderby', 'views_orderby');
+### Function: Views Public Variables
+add_filter('query_vars', 'views_variables');
+function views_variables($public_query_vars) {
+	$public_query_vars[] = 'v_sortby';
+	$public_query_vars[] = 'v_orderby';
+	return $public_query_vars;
+}
+
+
+### Function: Sort Ratings Posts
+add_action('pre_get_posts', 'views_sorting');
+function views_sorting() {
+	if(get_query_var('v_sortby') == 'views') {
+		add_filter('posts_fields', 'views_fields');
+		add_filter('posts_join', 'views_join');
+		add_filter('posts_where', 'views_where');
+		add_filter('posts_orderby', 'views_orderby');
+	}
 }
 
 
