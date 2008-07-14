@@ -168,7 +168,7 @@ if(!function_exists('get_most_viewed')) {
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password);
 				$post_content = get_the_content();
 				if($chars > 0) {				
-					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
+					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - ".sprintf(__ngettext('%s view', '%s views', $post_views, 'wp-postviews'), $post_views)."</li>\n";
 				} else {
 					$temp = stripslashes($views_options['most_viewed_template']);
 					$temp = str_replace("%VIEW_COUNT%", $post_views, $temp);
@@ -217,7 +217,7 @@ if(!function_exists('get_most_viewed_category')) {
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password);
 				$post_content = get_the_content();
 				if($chars > 0) {				
-					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - $post_views ".__('views', 'wp-postviews')."</li>\n";
+					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - ".sprintf(__ngettext('%s view', '%s views', $post_views, 'wp-postviews'), $post_views)."</li>\n";
 				} else {
 					$temp = stripslashes($views_options['most_viewed_template']);
 					$temp = str_replace("%VIEW_COUNT%", $post_views, $temp);
@@ -355,9 +355,9 @@ function postviews_page_admin_most_stats($content) {
 	$stats_display = get_option('stats_display');
 	$stats_mostlimit = intval(get_option('stats_mostlimit'));
 	if($stats_display['viewed_most'] == 1) {
-		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" checked="checked" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.$stats_mostlimit.' '.__('Most Viewed Posts', 'wp-postviews').'</label><br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" checked="checked" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), $stats_mostlimit).'</label><br />'."\n";
 	} else {
-		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.$stats_mostlimit.' '.__('Most Viewed Posts', 'wp-postviews').'</label><br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), $stats_mostlimit).'</label><br />'."\n";
 	}
 	return $content;
 }
@@ -369,7 +369,7 @@ function postviews_page_general_stats($content) {
 	if($stats_display['views'] == 1) {
 		$content .= '<p><strong>'.__('WP-PostViews', 'wp-postviews').'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
-		$content .= '<li><strong>'.get_totalviews(false).'</strong> '.__('views were generated.', 'wp-postviews').'</li>'."\n";
+		$content .= '<li>'.sprintf(__ngettext('<strong>%s</strong> view was generated..', '<strong>%s</strong> views were generated.', get_totalviews(false), 'wp-postviews'), get_totalviews(false)).'</li>'."\n";
 		$content .= '</ul>'."\n";
 	}
 	return $content;
@@ -381,7 +381,7 @@ function postviews_page_most_stats($content) {
 	$stats_display = get_option('stats_display');
 	$stats_mostlimit = intval(get_option('stats_mostlimit'));
 	if($stats_display['viewed_most'] == 1) {
-		$content .= '<p><strong>'.$stats_mostlimit.' '.__('Most Viewed Posts', 'wp-postviews').'</strong></p>'."\n";
+		$content .= '<p><strong>'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), $stats_mostlimit).'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
 		$content .= get_most_viewed('post', $stats_mostlimit, 0, false);
 		$content .= '</ul>'."\n";
