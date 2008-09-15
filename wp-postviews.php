@@ -121,9 +121,9 @@ function the_views($display = true) {
 	$views_options = get_option('views_options');
 	$output = str_replace('%VIEW_COUNT%', number_format_i18n($post_views), $views_options['template']);
 	if($display) {
-		echo $output;
+		echo apply_filters('the_views', $output);
 	} else {
-		return $output;
+		return apply_filters('the_views', $output);
 	}
 }
 
@@ -256,7 +256,7 @@ function views_post_excerpt($post_excerpt, $post_content, $post_password) {
 		}
 	}
 	if(empty($post_excerpt)) {
-		return snippet_text($post_content, 200);
+		return snippet_text(strip_tags($post_content), 200);
 	} else {
 		return $post_excerpt;
 	}
@@ -389,6 +389,7 @@ function increment_views() {
 ### Function: Post Views Options
 add_action('activate_wp-postviews/wp-postviews.php', 'views_init');
 function views_init() {
+  postviews_textdomain();
 	// Add Options
 	$views_options = array();
 	$views_options['count'] = 1;

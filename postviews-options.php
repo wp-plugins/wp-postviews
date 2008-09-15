@@ -188,14 +188,14 @@ switch($mode) {
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
 <div class="wrap"> 
 	<h2><?php _e('Uninstall WP-PostViews', 'wp-postviews'); ?></h2>
-	<p style="text-align: left;">
+	<p>
 		<?php _e('Deactivating WP-PostViews plugin does not remove any data that may have been created, such as the views data. To completely remove this plugin, you can uninstall it here.', 'wp-postviews'); ?>
 	</p>
-	<p style="text-align: left; color: red">
+	<p style="color: red">
 		<strong><?php _e('WARNING:', 'wp-postviews'); ?></strong><br />
 		<?php _e('Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first.', 'wp-postviews'); ?>
 	</p>
-	<p style="text-align: left; color: red">
+	<p style="color: red">
 		<strong><?php _e('The following WordPress Options/PostMetas will be DELETED:', 'wp-postviews'); ?></strong><br />
 	</p>
 	<table class="widefat">

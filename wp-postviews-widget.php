@@ -61,10 +61,10 @@ function widget_views_init() {
 			$options['chars'] = intval($_POST['most_viewed-chars']);
 			update_option('widget_views_most_viewed', $options);
 		}
-		echo '<p style="text-align: left;"><label for="most_viewed-title">';
+		echo '<p><label for="most_viewed-title">';
 		_e('Title', 'wp-postviews');
 		echo ': </label><input type="text" id="most_viewed-title" name="most_viewed-title" value="'.htmlspecialchars(stripslashes($options['title'])).'" /></p>'."\n";
-		echo '<p style="text-align: left;"><label for="most_viewed-mode">';
+		echo '<p><label for="most_viewed-mode">';
 		_e('Show Views For: ', 'wp-postviews');
 		echo ' </label>'."\n";
 		echo '<select id="most_viewed-mode" name="most_viewed-mode" size="1">'."\n";
@@ -86,10 +86,10 @@ function widget_views_init() {
 		echo '</select>&nbsp;&nbsp;';
 		_e('Only', 'wp-postviews');
 		echo '</p>'."\n";
-		echo '<p style="text-align: left;"><label for="most_viewed-limit">';
+		echo '<p><label for="most_viewed-limit">';
 		_e('Limit', 'wp-postviews');
 		echo ': </label><input type="text" id="most_viewed-limit" name="most_viewed-limit" value="'.intval($options['limit']).'" size="3" /></p>'."\n";
-		echo '<p style="text-align: left;"><label for="most_viewed-chars">';
+		echo '<p><label for="most_viewed-chars">';
 		_e('Post Title Length (Characters)', 'wp-postviews');
 		echo ': </label><input type="text" id="most_viewed-chars" name="most_viewed-chars" value="'.intval($options['chars']).'" size="5" />&nbsp;&nbsp;'."\n";
 		_e('(<strong>0</strong> to disable)', 'wp-postviews');
