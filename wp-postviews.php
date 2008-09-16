@@ -336,9 +336,9 @@ function postviews_page_admin_most_stats($content) {
 	$stats_display = get_option('stats_display');
 	$stats_mostlimit = intval(get_option('stats_mostlimit'));
 	if($stats_display['viewed_most'] == 1) {
-		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" checked="checked" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), $stats_mostlimit).'</label><br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" checked="checked" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</label><br />'."\n";
 	} else {
-		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), $stats_mostlimit).'</label><br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</label><br />'."\n";
 	}
 	return $content;
 }
@@ -362,7 +362,7 @@ function postviews_page_most_stats($content) {
 	$stats_display = get_option('stats_display');
 	$stats_mostlimit = intval(get_option('stats_mostlimit'));
 	if($stats_display['viewed_most'] == 1) {
-		$content .= '<p><strong>'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), $stats_mostlimit).'</strong></p>'."\n";
+		$content .= '<p><strong>'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
 		$content .= get_most_viewed('post', $stats_mostlimit, 0, false);
 		$content .= '</ul>'."\n";
