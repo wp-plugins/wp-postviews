@@ -128,6 +128,50 @@ function the_views($display = true) {
 }
 
 
+### Function: Display Least Viewed Page/Post
+if(!function_exists('get_least_viewed')) {
+	function get_least_viewed($mode = '', $limit = 10, $chars = 0, $display = true) {
+		global $wpdb, $post;
+		$views_options = get_option('views_options');
+		$where = '';
+		$temp = '';
+		$output = '';
+		if(!empty($mode) && $mode != 'both') {
+			$where = "post_type = '$mode'";
+		} else {
+			$where = '1=1';
+		}
+		$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID WHERE post_date < '".current_time('mysql')."' AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views ASC LIMIT $limit");
+		if($most_viewed) {
+			foreach ($most_viewed as $post) {
+				$post_views = intval($post->views);
+				$post_title = get_the_title();
+				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password);
+				$post_content = get_the_content();
+				if($chars > 0) {				
+					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - ".sprintf(__ngettext('%s view', '%s views', $post_views, 'wp-postviews'), number_format_i18n($post_views))."</li>\n";
+				} else {
+					$temp = stripslashes($views_options['most_viewed_template']);
+					$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
+					$temp = str_replace("%POST_TITLE%", $post_title, $temp);
+					$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
+					$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+					$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				}
+				$output .= $temp;
+			}			
+		} else {
+			$output = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
+		}
+		if($display) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
+}
+
+
 ### Function: Display Most Viewed Page/Post
 if(!function_exists('get_most_viewed')) {
 	function get_most_viewed($mode = '', $limit = 10, $chars = 0, $display = true) {
@@ -160,6 +204,55 @@ if(!function_exists('get_most_viewed')) {
 				}
 				$output .= $temp;
 			}			
+		} else {
+			$output = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
+		}
+		if($display) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
+}
+
+
+### Function: Display Leased Viewed Page/Post By Category ID
+if(!function_exists('get_least_viewed_category')) {
+	function get_least_viewed_category($category_id = 0, $mode = '', $limit = 10, $chars = 0, $display = true) {
+		global $wpdb, $post;
+		$views_options = get_option('views_options');
+		$where = '';
+		$temp = '';
+		$output = '';
+		if(is_array($category_id)) {
+			$category_sql = "$wpdb->term_taxonomy.term_id IN (".join(',', $category_id).')';
+		} else {
+			$category_sql = "$wpdb->term_taxonomy.term_id = $category_id";
+		}
+		if(!empty($mode) && $mode != 'both') {
+			$where = "post_type = '$mode'";
+		} else {
+			$where = '1=1';
+		}
+		$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID INNER JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id) INNER JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id) WHERE post_date < '".current_time('mysql')."' AND $wpdb->term_taxonomy.taxonomy = 'category' AND $category_sql AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views ASC LIMIT $limit");
+		if($most_viewed) {
+			foreach ($most_viewed as $post) {
+				$post_views = intval($post->views);
+				$post_title = get_the_title();
+				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password);
+				$post_content = get_the_content();
+				if($chars > 0) {				
+					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - ".sprintf(__ngettext('%s view', '%s views', $post_views, 'wp-postviews'), number_format_i18n($post_views))."</li>\n";
+				} else {
+					$temp = stripslashes($views_options['most_viewed_template']);
+					$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
+					$temp = str_replace("%POST_TITLE%", $post_title, $temp);
+					$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
+					$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+					$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				}
+				$output .= $temp;
+			}
 		} else {
 			$output = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
 		}
@@ -295,6 +388,22 @@ function views_orderby($content) {
 	}
 	$content = " views $orderby";
 	return $content;
+}
+
+
+### Function: Add Views Custom Fields
+add_action('publish_post', 'add_views_fields');
+function add_views_fields($post_ID) {
+	global $wpdb;
+	add_post_meta($post_ID, 'views', 0, true);	
+}
+
+
+### Function: Delete Views Custom Fields
+add_action('delete_post', 'delete_views_fields');
+function delete_views_fields($post_ID) {
+	global $wpdb;
+	delete_post_meta($post_ID, 'views');
 }
 
 
