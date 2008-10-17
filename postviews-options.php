@@ -181,49 +181,46 @@ switch($mode) {
 			</td>
 		</tr>
 	</table>
-	<h3>Display Options</h3>
-	<p>These options specify where the view counts should be displayed and to whom.
-	By default view counts will be displayed to all visitors. Note that the theme
-	files must contain a call to <code>the_views()</code> in order for any view
-	count to be displayed.</p>
+	<h3><?php _e('Display Options', 'wp-postviews'); ?></h3>
+	<p><?php _e('These options specify where the view counts should be displayed and to whom. 	By default view counts will be displayed to all visitors. Note that the theme files must contain a call to <code>the_views()</code> in order for any view count to be displayed.', 'wp-postviews'); ?></p>
 	<table class="form-table">
 		<tr>
-			<td valign="top"><strong>Home Page:</strong></td>
+			<td valign="top"><strong><?php _e('Home Page:', 'wp-postviews'); ?></strong></td>
 			<td>
 				<select name="views_display_home" size="1">
-					<option value="0"<?php selected('0', $views_options['display_home']); ?>>Display to everyone</option>
-					<option value="1"<?php selected('1', $views_options['display_home']); ?>>Display to registered users only</option>
-					<option value="2"<?php selected('2', $views_options['display_home']); ?>>Don't display views on home page</option>
+					<option value="0"<?php selected('0', $views_options['display_home']); ?>><?php _e('Display to everyone', 'wp-postviews'); ?></option>
+					<option value="1"<?php selected('1', $views_options['display_home']); ?>><?php _e('Display to registered users only', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['display_home']); ?>><?php _e('Don\'t display views on home page', 'wp-postviews'); ?></option>
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td valign="top"><strong>Singe Posts:</strong></td>
+			<td valign="top"><strong><?php _e('Singe Posts:', 'wp-postviews'); ?></strong></td>
 			<td>
 				<select name="views_display_single" size="1">
-					<option value="0"<?php selected('0', $views_options['display_single']); ?>>Display to everyone</option>
-					<option value="1"<?php selected('1', $views_options['display_single']); ?>>Display to registered users only</option>
-					<option value="2"<?php selected('2', $views_options['display_single']); ?>>Don't display views on single posts</option>
+					<option value="0"<?php selected('0', $views_options['display_single']); ?>><?php _e('Display to everyone', 'wp-postviews'); ?></option>
+					<option value="1"<?php selected('1', $views_options['display_single']); ?>><?php _e('Display to registered users only', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['display_single']); ?>><?php _e('Don\'t display views on single posts', 'wp-postviews'); ?></option>
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td valign="top"><strong>Pages:</strong></td>
+			<td valign="top"><strong><?php _e('Pages:', 'wp-postviews'); ?></strong></td>
 			<td>
 				<select name="views_display_page" size="1">
-					<option value="0"<?php selected('0', $views_options['display_page']); ?>>Display to everyone</option>
-					<option value="1"<?php selected('1', $views_options['display_page']); ?>>Display to registered users only</option>
-					<option value="2"<?php selected('2', $views_options['display_page']); ?>>Don't display views on pages</option>
+					<option value="0"<?php selected('0', $views_options['display_page']); ?>><?php _e('Display to everyone', 'wp-postviews'); ?></option>
+					<option value="1"<?php selected('1', $views_options['display_page']); ?>><?php _e('Display to registered users only', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['display_page']); ?>><?php _e('Don\'t display views on pages', 'wp-postviews'); ?></option>
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td valign="top"><strong>Archive Pages:</strong></td>
+			<td valign="top"><strong><?php _e('Archive Pages:', 'wp-postviews'); ?></strong></td>
 			<td>
 				<select name="views_display_archive" size="1">
-					<option value="0"<?php selected('0', $views_options['display_archive']); ?>>Display to everyone</option>
-					<option value="1"<?php selected('1', $views_options['display_archive']); ?>>Display to registered users only</option>
-					<option value="2"<?php selected('2', $views_options['display_archive']); ?>>Don't display views on archive pages</option>
+					<option value="0"<?php selected('0', $views_options['display_archive']); ?>><?php _e('Display to everyone', 'wp-postviews'); ?></option>
+					<option value="1"<?php selected('1', $views_options['display_archive']); ?>><?php _e('Display to registered users only', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['display_archive']); ?>><?php _e('Don\'t display views on archive pages', 'wp-postviews'); ?></option>
 				</select>
 			</td>
 		</tr>

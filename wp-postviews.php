@@ -115,7 +115,7 @@ function process_postviews() {
 }
 
 
-### Function: Determine if post views should be displayed
+### Function: Determine If Post Views Should Be Displayed (By: David Potter)
 function should_views_be_displayed($views_options = null) {
 	if ($views_options == null) {
 		$views_options = get_option('views_options');
@@ -125,18 +125,15 @@ function should_views_be_displayed($views_options = null) {
 		if (array_key_exists('display_single', $views_options)) {
 			$display_option = $views_options['display_single'];
 		}
-	}
-	elseif (is_page()) {
+	} elseif (is_page()) {
 		if (array_key_exists('display_page', $views_options)) {
 			$display_option = $views_options['display_page'];
 		}
-	}
-	elseif (is_archive()) {
+	} elseif (is_archive()) {
 		if (array_key_exists('display_archive', $views_options)) {
 			$display_option = $views_options['display_archive'];
 		}
-	}
-	else {
+	} else {
 		if (array_key_exists('display_home', $views_options)) {
 			$display_option = $views_options['display_home'];
 		}
@@ -146,11 +143,11 @@ function should_views_be_displayed($views_options = null) {
 
 
 ### Function: Display The Post Views
-function the_views($display = true, $prefix = '', $postfix = '', $always = False) {
+function the_views($display = true, $prefix = '', $postfix = '', $always = false) {
 	$post_views = intval(post_custom('views'));
 	$views_options = get_option('views_options');
 	if ($always || should_views_be_displayed($views_options)) {
-		$output = $prefix.str_replace('%VIEW_COUNT%', number_format_i18n($post_views), $views_options['template']);
+		$output = $prefix.str_replace('%VIEW_COUNT%', number_format_i18n($post_views), $views_options['template']).$postfix;
 		if($display) {
 			echo apply_filters('the_views', $output);
 		} else {
