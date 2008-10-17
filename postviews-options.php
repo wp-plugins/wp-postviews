@@ -32,6 +32,10 @@ if(!empty($_POST['Submit'])) {
 	$views_options = array();
 	$views_options['count'] = intval($_POST['views_count']);
 	$views_options['exclude_bots'] = intval($_POST['views_exclude_bots']);
+	$views_options['display_home'] = intval($_POST['views_display_home']);
+	$views_options['display_single'] = intval($_POST['views_display_single']);
+	$views_options['display_page'] = intval($_POST['views_display_page']);
+	$views_options['display_archive'] = intval($_POST['views_display_archive']);
 	$views_options['template'] =  trim($_POST['views_template_template']);
 	$views_options['most_viewed_template'] =  trim($_POST['views_template_most_viewed']);
 	$update_views_queries = array();
@@ -174,6 +178,53 @@ switch($mode) {
 			</td>
 			<td valign="top">
 				<textarea cols="80" rows="15"  id="views_template_most_viewed" name="views_template_most_viewed"><?php echo htmlspecialchars(stripslashes($views_options['most_viewed_template'])); ?></textarea>
+			</td>
+		</tr>
+	</table>
+	<h3>Display Options</h3>
+	<p>These options specify where the view counts should be displayed and to whom.
+	By default view counts will be displayed to all visitors. Note that the theme
+	files must contain a call to <code>the_views()</code> in order for any view
+	count to be displayed.</p>
+	<table class="form-table">
+		<tr>
+			<td valign="top"><strong>Home Page:</strong></td>
+			<td>
+				<select name="views_display_home" size="1">
+					<option value="0"<?php selected('0', $views_options['display_home']); ?>>Display to everyone</option>
+					<option value="1"<?php selected('1', $views_options['display_home']); ?>>Display to registered users only</option>
+					<option value="2"<?php selected('2', $views_options['display_home']); ?>>Don't display views on home page</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top"><strong>Singe Posts:</strong></td>
+			<td>
+				<select name="views_display_single" size="1">
+					<option value="0"<?php selected('0', $views_options['display_single']); ?>>Display to everyone</option>
+					<option value="1"<?php selected('1', $views_options['display_single']); ?>>Display to registered users only</option>
+					<option value="2"<?php selected('2', $views_options['display_single']); ?>>Don't display views on single posts</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top"><strong>Pages:</strong></td>
+			<td>
+				<select name="views_display_page" size="1">
+					<option value="0"<?php selected('0', $views_options['display_page']); ?>>Display to everyone</option>
+					<option value="1"<?php selected('1', $views_options['display_page']); ?>>Display to registered users only</option>
+					<option value="2"<?php selected('2', $views_options['display_page']); ?>>Don't display views on pages</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top"><strong>Archive Pages:</strong></td>
+			<td>
+				<select name="views_display_archive" size="1">
+					<option value="0"<?php selected('0', $views_options['display_archive']); ?>>Display to everyone</option>
+					<option value="1"<?php selected('1', $views_options['display_archive']); ?>>Display to registered users only</option>
+					<option value="2"<?php selected('2', $views_options['display_archive']); ?>>Don't display views on archive pages</option>
+				</select>
 			</td>
 		</tr>
 	</table>

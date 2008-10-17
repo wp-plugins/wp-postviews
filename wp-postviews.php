@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP-PostViews
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
-Description: Enables you to display how many times a post/page had been viewed.
+Description: Enables you to display how many times a post/page had been viewed. Modified by <a href="http://DPotter.net/Technical/" title="David's Technical Musings">David Potter</a> to include options for when and where to display view counts.
 Version: 1.40
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
@@ -115,15 +115,50 @@ function process_postviews() {
 }
 
 
+### Function: Determine if post views should be displayed
+function should_views_be_displayed($views_options = null) {
+	if ($views_options == null) {
+		$views_options = get_option('views_options');
+	}
+	$display_option = 0;
+	if (is_single()) {
+		if (array_key_exists('display_single', $views_options)) {
+			$display_option = $views_options['display_single'];
+		}
+	}
+	elseif (is_page()) {
+		if (array_key_exists('display_page', $views_options)) {
+			$display_option = $views_options['display_page'];
+		}
+	}
+	elseif (is_archive()) {
+		if (array_key_exists('display_archive', $views_options)) {
+			$display_option = $views_options['display_archive'];
+		}
+	}
+	else {
+		if (array_key_exists('display_home', $views_options)) {
+			$display_option = $views_options['display_home'];
+		}
+	}
+	return (($display_option == 0) || (($display_option == 1) && is_user_logged_in()));
+}
+
+
 ### Function: Display The Post Views
-function the_views($display = true) {
+function the_views($display = true, $prefix = '', $postfix = '', $always = False) {
 	$post_views = intval(post_custom('views'));
 	$views_options = get_option('views_options');
-	$output = str_replace('%VIEW_COUNT%', number_format_i18n($post_views), $views_options['template']);
-	if($display) {
-		echo apply_filters('the_views', $output);
-	} else {
-		return apply_filters('the_views', $output);
+	if ($always || should_views_be_displayed($views_options)) {
+		$output = $prefix.str_replace('%VIEW_COUNT%', number_format_i18n($post_views), $views_options['template']);
+		if($display) {
+			echo apply_filters('the_views', $output);
+		} else {
+			return apply_filters('the_views', $output);
+		}
+	}
+	elseif (!$display) {
+		return '';
 	}
 }
 
@@ -512,6 +547,10 @@ function views_init() {
 	$views_options = array();
 	$views_options['count'] = 1;
 	$views_options['exclude_bots'] = 0;	
+	$views_options['display_home'] = 0;
+	$views_options['display_single'] = 0;
+	$views_options['display_page'] = 0;
+	$views_options['display_archive'] = 0;
 	$views_options['template'] = __('%VIEW_COUNT% views', 'wp-postviews');
 	$views_options['most_viewed_template'] = '<li><a href="%POST_URL%"  title="%POST_TITLE%">%POST_TITLE%</a> - %VIEW_COUNT% '.__('views', 'wp-postviews').'</li>';
 	add_option('views_options', $views_options, 'Post Views Options');
