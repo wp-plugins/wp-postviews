@@ -121,7 +121,11 @@ function should_views_be_displayed($views_options = null) {
 		$views_options = get_option('views_options');
 	}
 	$display_option = 0;
-	if (is_single()) {
+	if (is_home()) {
+		if (array_key_exists('display_home', $views_options)) {
+			$display_option = $views_options['display_home'];
+		}
+	} elseif (is_single()) {
 		if (array_key_exists('display_single', $views_options)) {
 			$display_option = $views_options['display_single'];
 		}
@@ -133,9 +137,13 @@ function should_views_be_displayed($views_options = null) {
 		if (array_key_exists('display_archive', $views_options)) {
 			$display_option = $views_options['display_archive'];
 		}
+	} elseif (is_search()) {
+		if (array_key_exists('display_search', $views_options)) {
+			$display_option = $views_options['display_search'];
+		}
 	} else {
-		if (array_key_exists('display_home', $views_options)) {
-			$display_option = $views_options['display_home'];
+		if (array_key_exists('display_other', $views_options)) {
+			$display_option = $views_options['display_other'];
 		}
 	}
 	return (($display_option == 0) || (($display_option == 1) && is_user_logged_in()));
@@ -539,7 +547,7 @@ function increment_views() {
 ### Function: Post Views Options
 add_action('activate_wp-postviews/wp-postviews.php', 'views_init');
 function views_init() {
-  postviews_textdomain();
+	postviews_textdomain();
 	// Add Options
 	$views_options = array();
 	$views_options['count'] = 1;
@@ -548,6 +556,8 @@ function views_init() {
 	$views_options['display_single'] = 0;
 	$views_options['display_page'] = 0;
 	$views_options['display_archive'] = 0;
+	$views_options['display_search'] = 0;
+	$views_options['display_other'] = 0;
 	$views_options['template'] = __('%VIEW_COUNT% views', 'wp-postviews');
 	$views_options['most_viewed_template'] = '<li><a href="%POST_URL%"  title="%POST_TITLE%">%POST_TITLE%</a> - %VIEW_COUNT% '.__('views', 'wp-postviews').'</li>';
 	add_option('views_options', $views_options, 'Post Views Options');

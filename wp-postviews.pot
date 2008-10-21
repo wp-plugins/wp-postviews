@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP-PostViews 1.40\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-18 03:54+0800\n"
-"PO-Revision-Date: 2008-10-18 03:54+0800\n"
+"POT-Creation-Date: 2008-10-21 16:59+0800\n"
+"PO-Revision-Date: 2008-10-21 16:59+0800\n"
 "Last-Translator: Lester Chan <lesterchan@gmail.com>\n"
 "Language-Team: Lester Chan <lesterchan@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -15,194 +15,214 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: postviews-options.php:44
-#: postviews-options.php:136
+#: postviews-options.php:46
+#: postviews-options.php:138
 msgid "Post Views Options"
 msgstr ""
 
-#: postviews-options.php:49
+#: postviews-options.php:51
 msgid "Updated"
 msgstr ""
 
-#: postviews-options.php:54
+#: postviews-options.php:56
 msgid "No Post Views Option Updated"
 msgstr ""
 
-#: postviews-options.php:61
-#: postviews-options.php:280
+#: postviews-options.php:63
+#: postviews-options.php:302
 msgid "UNINSTALL WP-PostViews"
 msgstr ""
 
-#: postviews-options.php:69
+#: postviews-options.php:71
 #, php-format
 msgid "Setting Key '%s' has been deleted."
 msgstr ""
 
-#: postviews-options.php:73
+#: postviews-options.php:75
 #, php-format
 msgid "Error deleting Setting Key '%s'."
 msgstr ""
 
-#: postviews-options.php:83
+#: postviews-options.php:85
 #, php-format
 msgid "Post Meta Key '%s' has been deleted."
 msgstr ""
 
-#: postviews-options.php:87
+#: postviews-options.php:89
 #, php-format
 msgid "Error deleting Post Meta Key '%s'."
 msgstr ""
 
-#: postviews-options.php:109
-#: postviews-options.php:238
+#: postviews-options.php:111
+#: postviews-options.php:260
 msgid "Uninstall WP-PostViews"
 msgstr ""
 
-#: postviews-options.php:110
+#: postviews-options.php:112
 #, php-format
 msgid "<a href=\"%s\">Click Here</a> To Finish The Uninstallation And WP-PostViews Will Be Deactivated Automatically."
 msgstr ""
 
-#: postviews-options.php:123
-#: wp-postviews.php:551
+#: postviews-options.php:125
+#: wp-postviews.php:561
 msgid "%VIEW_COUNT% views"
 msgstr ""
 
-#: postviews-options.php:126
-#: wp-postviews.php:552
+#: postviews-options.php:128
+#: wp-postviews.php:562
 msgid "views"
 msgstr ""
 
-#: postviews-options.php:139
+#: postviews-options.php:141
 msgid "Count Views From:"
 msgstr ""
 
-#: postviews-options.php:142
+#: postviews-options.php:144
 msgid "Everyone"
 msgstr ""
 
-#: postviews-options.php:143
+#: postviews-options.php:145
 msgid "Guests Only"
 msgstr ""
 
-#: postviews-options.php:144
+#: postviews-options.php:146
 msgid "Registered Users Only"
 msgstr ""
 
-#: postviews-options.php:149
+#: postviews-options.php:151
 msgid "Exclude Bot Views:"
 msgstr ""
 
-#: postviews-options.php:152
+#: postviews-options.php:154
 msgid "No"
 msgstr ""
 
-#: postviews-options.php:153
-#: postviews-options.php:279
+#: postviews-options.php:155
+#: postviews-options.php:301
 msgid "Yes"
 msgstr ""
 
-#: postviews-options.php:159
+#: postviews-options.php:161
 msgid "Views Template:"
 msgstr ""
 
-#: postviews-options.php:160
-#: postviews-options.php:171
+#: postviews-options.php:162
+#: postviews-options.php:173
 msgid "Allowed Variables:"
 msgstr ""
 
-#: postviews-options.php:162
-#: postviews-options.php:177
+#: postviews-options.php:164
+#: postviews-options.php:179
 msgid "Restore Default Template"
 msgstr ""
 
-#: postviews-options.php:170
+#: postviews-options.php:172
 msgid "Most Viewed Template:"
 msgstr ""
 
-#: postviews-options.php:184
+#: postviews-options.php:186
 msgid "Display Options"
 msgstr ""
 
-#: postviews-options.php:185
+#: postviews-options.php:187
 msgid "These options specify where the view counts should be displayed and to whom. \tBy default view counts will be displayed to all visitors. Note that the theme files must contain a call to <code>the_views()</code> in order for any view count to be displayed."
 msgstr ""
 
-#: postviews-options.php:188
+#: postviews-options.php:190
 msgid "Home Page:"
 msgstr ""
 
-#: postviews-options.php:191
-#: postviews-options.php:201
-#: postviews-options.php:211
-#: postviews-options.php:221
+#: postviews-options.php:193
+#: postviews-options.php:203
+#: postviews-options.php:213
+#: postviews-options.php:223
+#: postviews-options.php:233
+#: postviews-options.php:243
 msgid "Display to everyone"
 msgstr ""
 
-#: postviews-options.php:192
-#: postviews-options.php:202
-#: postviews-options.php:212
-#: postviews-options.php:222
+#: postviews-options.php:194
+#: postviews-options.php:204
+#: postviews-options.php:214
+#: postviews-options.php:224
+#: postviews-options.php:234
+#: postviews-options.php:244
 msgid "Display to registered users only"
 msgstr ""
 
-#: postviews-options.php:193
-msgid "Don't display views on home page"
+#: postviews-options.php:195
+msgid "Don't display on home page"
 msgstr ""
 
-#: postviews-options.php:198
+#: postviews-options.php:200
 msgid "Singe Posts:"
 msgstr ""
 
-#: postviews-options.php:203
-msgid "Don't display views on single posts"
+#: postviews-options.php:205
+msgid "Don't display on single posts"
 msgstr ""
 
-#: postviews-options.php:208
+#: postviews-options.php:210
 msgid "Pages:"
 msgstr ""
 
-#: postviews-options.php:213
-msgid "Don't display views on pages"
+#: postviews-options.php:215
+msgid "Don't display on pages"
 msgstr ""
 
-#: postviews-options.php:218
+#: postviews-options.php:220
 msgid "Archive Pages:"
 msgstr ""
 
-#: postviews-options.php:223
-msgid "Don't display views on archive pages"
+#: postviews-options.php:225
+msgid "Don't display on archive pages"
 msgstr ""
 
-#: postviews-options.php:229
-msgid "Save Changes"
+#: postviews-options.php:230
+msgid "Search Pages:"
+msgstr ""
+
+#: postviews-options.php:235
+msgid "Don't display on search pages"
 msgstr ""
 
 #: postviews-options.php:240
+msgid "Other Pages:"
+msgstr ""
+
+#: postviews-options.php:245
+msgid "Don't display on other pages"
+msgstr ""
+
+#: postviews-options.php:251
+msgid "Save Changes"
+msgstr ""
+
+#: postviews-options.php:262
 msgid "Deactivating WP-PostViews plugin does not remove any data that may have been created, such as the views data. To completely remove this plugin, you can uninstall it here."
 msgstr ""
 
-#: postviews-options.php:243
+#: postviews-options.php:265
 msgid "WARNING:"
 msgstr ""
 
-#: postviews-options.php:244
+#: postviews-options.php:266
 msgid "Once uninstalled, this cannot be undone. You should use a Database Backup plugin of WordPress to back up all the data first."
 msgstr ""
 
-#: postviews-options.php:247
+#: postviews-options.php:269
 msgid "The following WordPress Options/PostMetas will be DELETED:"
 msgstr ""
 
-#: postviews-options.php:252
+#: postviews-options.php:274
 msgid "WordPress Options"
 msgstr ""
 
-#: postviews-options.php:253
+#: postviews-options.php:275
 msgid "WordPress PostMetas"
 msgstr ""
 
-#: postviews-options.php:280
+#: postviews-options.php:302
 msgid ""
 "You Are About To Uninstall WP-PostViews From WordPress.\\n"
 "This Action Is Not Reversible.\\n"
@@ -254,43 +274,43 @@ msgstr ""
 msgid "Post Views"
 msgstr ""
 
-#: wp-postviews.php:184
-#: wp-postviews.php:228
-#: wp-postviews.php:277
-#: wp-postviews.php:326
+#: wp-postviews.php:192
+#: wp-postviews.php:236
+#: wp-postviews.php:285
+#: wp-postviews.php:334
 #, php-format
 msgid "%s view"
 msgid_plural "%s views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: wp-postviews.php:196
-#: wp-postviews.php:240
-#: wp-postviews.php:289
-#: wp-postviews.php:338
+#: wp-postviews.php:204
+#: wp-postviews.php:248
+#: wp-postviews.php:297
+#: wp-postviews.php:346
 msgid "N/A"
 msgstr ""
 
-#: wp-postviews.php:389
+#: wp-postviews.php:397
 msgid "There is no excerpt because this is a protected post."
 msgstr ""
 
-#: wp-postviews.php:476
-#: wp-postviews.php:478
-#: wp-postviews.php:501
+#: wp-postviews.php:484
+#: wp-postviews.php:486
+#: wp-postviews.php:509
 msgid "WP-PostViews"
 msgstr ""
 
-#: wp-postviews.php:489
-#: wp-postviews.php:491
-#: wp-postviews.php:515
+#: wp-postviews.php:497
+#: wp-postviews.php:499
+#: wp-postviews.php:523
 #, php-format
 msgid "%s Most Viewed Post"
 msgid_plural "%s Most Viewed Posts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: wp-postviews.php:503
+#: wp-postviews.php:511
 #, php-format
 msgid "<strong>%s</strong> view was generated."
 msgid_plural "<strong>%s</strong> views were generated."

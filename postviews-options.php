@@ -36,6 +36,8 @@ if(!empty($_POST['Submit'])) {
 	$views_options['display_single'] = intval($_POST['views_display_single']);
 	$views_options['display_page'] = intval($_POST['views_display_page']);
 	$views_options['display_archive'] = intval($_POST['views_display_archive']);
+	$views_options['display_search'] = intval($_POST['views_display_search']);
+	$views_options['display_other'] = intval($_POST['views_display_other']);
 	$views_options['template'] =  trim($_POST['views_template_template']);
 	$views_options['most_viewed_template'] =  trim($_POST['views_template_most_viewed']);
 	$update_views_queries = array();
@@ -190,7 +192,7 @@ switch($mode) {
 				<select name="views_display_home" size="1">
 					<option value="0"<?php selected('0', $views_options['display_home']); ?>><?php _e('Display to everyone', 'wp-postviews'); ?></option>
 					<option value="1"<?php selected('1', $views_options['display_home']); ?>><?php _e('Display to registered users only', 'wp-postviews'); ?></option>
-					<option value="2"<?php selected('2', $views_options['display_home']); ?>><?php _e('Don\'t display views on home page', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['display_home']); ?>><?php _e('Don\'t display on home page', 'wp-postviews'); ?></option>
 				</select>
 			</td>
 		</tr>
@@ -200,7 +202,7 @@ switch($mode) {
 				<select name="views_display_single" size="1">
 					<option value="0"<?php selected('0', $views_options['display_single']); ?>><?php _e('Display to everyone', 'wp-postviews'); ?></option>
 					<option value="1"<?php selected('1', $views_options['display_single']); ?>><?php _e('Display to registered users only', 'wp-postviews'); ?></option>
-					<option value="2"<?php selected('2', $views_options['display_single']); ?>><?php _e('Don\'t display views on single posts', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['display_single']); ?>><?php _e('Don\'t display on single posts', 'wp-postviews'); ?></option>
 				</select>
 			</td>
 		</tr>
@@ -210,7 +212,7 @@ switch($mode) {
 				<select name="views_display_page" size="1">
 					<option value="0"<?php selected('0', $views_options['display_page']); ?>><?php _e('Display to everyone', 'wp-postviews'); ?></option>
 					<option value="1"<?php selected('1', $views_options['display_page']); ?>><?php _e('Display to registered users only', 'wp-postviews'); ?></option>
-					<option value="2"<?php selected('2', $views_options['display_page']); ?>><?php _e('Don\'t display views on pages', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['display_page']); ?>><?php _e('Don\'t display on pages', 'wp-postviews'); ?></option>
 				</select>
 			</td>
 		</tr>
@@ -220,7 +222,27 @@ switch($mode) {
 				<select name="views_display_archive" size="1">
 					<option value="0"<?php selected('0', $views_options['display_archive']); ?>><?php _e('Display to everyone', 'wp-postviews'); ?></option>
 					<option value="1"<?php selected('1', $views_options['display_archive']); ?>><?php _e('Display to registered users only', 'wp-postviews'); ?></option>
-					<option value="2"<?php selected('2', $views_options['display_archive']); ?>><?php _e('Don\'t display views on archive pages', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['display_archive']); ?>><?php _e('Don\'t display on archive pages', 'wp-postviews'); ?></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top"><strong><?php _e('Search Pages:', 'wp-postviews'); ?></strong></td>
+			<td>
+				<select name="views_display_search" size="1">
+					<option value="0"<?php selected('0', $views_options['display_search']); ?>><?php _e('Display to everyone', 'wp-postviews'); ?></option>
+					<option value="1"<?php selected('1', $views_options['display_search']); ?>><?php _e('Display to registered users only', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['display_search']); ?>><?php _e('Don\'t display on search pages', 'wp-postviews'); ?></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top"><strong><?php _e('Other Pages:', 'wp-postviews'); ?></strong></td>
+			<td>
+				<select name="views_display_other" size="1">
+					<option value="0"<?php selected('0', $views_options['display_other']); ?>><?php _e('Display to everyone', 'wp-postviews'); ?></option>
+					<option value="1"<?php selected('1', $views_options['display_other']); ?>><?php _e('Display to registered users only', 'wp-postviews'); ?></option>
+					<option value="2"<?php selected('2', $views_options['display_other']); ?>><?php _e('Don\'t display on other pages', 'wp-postviews'); ?></option>
 				</select>
 			</td>
 		</tr>
