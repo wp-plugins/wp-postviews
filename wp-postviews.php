@@ -50,7 +50,7 @@ function postviews_textdomain() {
 add_action('admin_menu', 'postviews_menu');
 function postviews_menu() {
 	if (function_exists('add_options_page')) {
-		add_options_page(__('Post Views', 'wp-postviews'), __('Post Views', 'wp-postviews'), 'manage_options', 'wp-postviews/postviews-options.php') ;
+		add_options_page(__('PostViews', 'wp-postviews'), __('PostViews', 'wp-postviews'), 'manage_options', 'wp-postviews/postviews-options.php') ;
 	}
 }
 

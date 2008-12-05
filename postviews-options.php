@@ -134,7 +134,8 @@ switch($mode) {
 </script>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
-<div class="wrap"> 
+<div class="wrap">
+	<?php screen_icon(); ?>
 	<h2><?php _e('Post Views Options', 'wp-postviews'); ?></h2>
 	<table class="form-table">
 		 <tr>
@@ -257,7 +258,7 @@ switch($mode) {
 <!-- Uninstall WP-PostViews -->
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>"> 
 <div class="wrap"> 
-	<h2><?php _e('Uninstall WP-PostViews', 'wp-postviews'); ?></h2>
+	<h3><?php _e('Uninstall WP-PostViews', 'wp-postviews'); ?></h3>
 	<p>
 		<?php _e('Deactivating WP-PostViews plugin does not remove any data that may have been created, such as the views data. To completely remove this plugin, you can uninstall it here.', 'wp-postviews'); ?>
 	</p>
