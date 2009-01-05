@@ -3,14 +3,14 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Enables you to display how many times a post/page had been viewed. Modified by <a href="http://DPotter.net/Technical/" title="David's Technical Musings">David Potter</a> to include options for when and where to display view counts.
-Version: 1.40
+Version: 1.41
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 */
 
 
 /*  
-	Copyright 2008  Lester Chan  (email : lesterchan@gmail.com)
+	Copyright 2009  Lester Chan  (email : lesterchan@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -435,7 +435,9 @@ function views_orderby($content) {
 add_action('publish_post', 'add_views_fields');
 function add_views_fields($post_ID) {
 	global $wpdb;
-	add_post_meta($post_ID, 'views', 0, true);	
+	if(!wp_is_post_revision($post_ID)) {
+		add_post_meta($post_ID, 'views', 0, true);
+	}
 }
 
 
@@ -443,7 +445,9 @@ function add_views_fields($post_ID) {
 add_action('delete_post', 'delete_views_fields');
 function delete_views_fields($post_ID) {
 	global $wpdb;
-	delete_post_meta($post_ID, 'views');
+	if(!wp_is_post_revision($post_ID)) {
+		delete_post_meta($post_ID, 'views');
+	}
 }
 
 
