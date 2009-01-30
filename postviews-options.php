@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.7 Plugin: WP-PostViews 1.41									|
+|	WordPress 2.7 Plugin: WP-PostViews 1.50	 								|
 |	Copyright (c) 2009 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
@@ -128,7 +128,7 @@ switch($mode) {
 				default_template = "<li><a href=\"%POST_URL%\"  title=\"%POST_TITLE%\">%POST_TITLE%</a> - %VIEW_COUNT% <?php _e('views', 'wp-postviews'); ?></li>";
 				break;
 		}
-		document.getElementById("views_template_" + template).value = default_template;
+		jQuery("#views_template_" + template).val(default_template);
 	}
 	/* ]]> */
 </script>
