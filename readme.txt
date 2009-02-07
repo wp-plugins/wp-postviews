@@ -2,7 +2,7 @@
 Contributors: GamerZ
 Donate link: http://lesterchan.net/wordpress
 Tags: views, hits, counter, postviews
-Requires at least: 2.7.0
+Requires at least: 2.7
 Stable tag: 1.40
 
 Enables you to display how many times a post/page had been viewed.
