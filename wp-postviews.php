@@ -494,10 +494,15 @@ function postviews_page_admin_general_stats($content) {
 function postviews_page_admin_most_stats($content) {
 	$stats_display = get_option('stats_display');
 	$stats_mostlimit = intval(get_option('stats_mostlimit'));
-	if($stats_display['viewed_most'] == 1) {
-		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" checked="checked" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</label><br />'."\n";
+	if($stats_display['viewed_most_post'] == 1) {
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most_post" value="viewed_most_post" checked="checked" />&nbsp;&nbsp;<label for="wpstats_viewed_most_post">'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</label><br />'."\n";
 	} else {
-		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most" value="viewed_most" />&nbsp;&nbsp;<label for="wpstats_viewed_most">'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</label><br />'."\n";
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most_post" value="viewed_most_post" />&nbsp;&nbsp;<label for="wpstats_viewed_most_post">'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</label><br />'."\n";
+	}
+	if($stats_display['viewed_most_page'] == 1) {
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most_page" value="viewed_most_page" checked="checked" />&nbsp;&nbsp;<label for="wpstats_viewed_most_page">'.sprintf(__ngettext('%s Most Viewed Page', '%s Most Viewed Pages', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</label><br />'."\n";
+	} else {
+		$content .= '<input type="checkbox" name="stats_display[]" id="wpstats_viewed_most_page" value="viewed_most_page" />&nbsp;&nbsp;<label for="wpstats_viewed_most_page">'.sprintf(__ngettext('%s Most Viewed Page', '%s Most Viewed Pages', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</label><br />'."\n";
 	}
 	return $content;
 }
@@ -520,10 +525,16 @@ function postviews_page_general_stats($content) {
 function postviews_page_most_stats($content) {
 	$stats_display = get_option('stats_display');
 	$stats_mostlimit = intval(get_option('stats_mostlimit'));
-	if($stats_display['viewed_most'] == 1) {
+	if($stats_display['viewed_most_post'] == 1) {
 		$content .= '<p><strong>'.sprintf(__ngettext('%s Most Viewed Post', '%s Most Viewed Posts', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</strong></p>'."\n";
 		$content .= '<ul>'."\n";
 		$content .= get_most_viewed('post', $stats_mostlimit, 0, false);
+		$content .= '</ul>'."\n";
+	}
+	if($stats_display['viewed_most_page'] == 1) {
+		$content .= '<p><strong>'.sprintf(__ngettext('%s Most Viewed Page', '%s Most Viewed Pages', $stats_mostlimit, 'wp-postviews'), number_format_i18n($stats_mostlimit)).'</strong></p>'."\n";
+		$content .= '<ul>'."\n";
+		$content .= get_most_viewed('page', $stats_mostlimit, 0, false);
 		$content .= '</ul>'."\n";
 	}
 	return $content;
