@@ -457,14 +457,19 @@ function views_variables($public_query_vars) {
 }
 
 
-### Function: Sort Ratings Posts
+### Function: Sort Views Posts
 add_action('pre_get_posts', 'views_sorting');
-function views_sorting() {
-	if(get_query_var('v_sortby') == 'views') {
+function views_sorting($local_wp_query) {
+	if($local_wp_query->get('v_sortby') == 'views') {
 		add_filter('posts_fields', 'views_fields');
 		add_filter('posts_join', 'views_join');
 		add_filter('posts_where', 'views_where');
 		add_filter('posts_orderby', 'views_orderby');
+	} else {
+		remove_filter('posts_fields', 'views_fields');
+		remove_filter('posts_join', 'views_join');
+		remove_filter('posts_where', 'views_where');
+		remove_filter('posts_orderby', 'views_orderby');
 	}
 }
 
