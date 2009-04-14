@@ -234,7 +234,8 @@
 			</p>
 			<p>
 				<strong>Download:</strong><br />
-				<strong>&raquo;</strong> <a href="http://downloads.wordpress.org/plugin/wp-postviews.1.50.zip" title="http://downloads.wordpress.org/plugin/wp-postviews.1.50.zip">WP-PostViews 1.50 For WordPress 2.7.x And 2.8.x</a><br />
+				<strong>&raquo;</strong> <a href="http://downloads.wordpress.org/plugin/wp-postviews.1.50.zip" title="http://downloads.wordpress.org/plugin/wp-postviews.1.50.zip">WP-PostViews 1.50 For WordPress 2.8.x</a><br />
+				<strong>&raquo;</strong> <a href="http://downloads.wordpress.org/plugin/wp-postviews.1.40.zip" title="http://downloads.wordpress.org/plugin/wp-postviews.1.40.zip">WP-PostViews 1.40 For WordPress 2.7.x</a><br />
 				<strong>&raquo;</strong> <a href="http://downloads.wordpress.org/plugin/wp-postviews.1.31.zip" title="http://downloads.wordpress.org/plugin/wp-postviews.1.31.zip">WP-PostViews 1.31 For WordPress 2.3.x, 2.5.x And 2.6.x</a><br />
 				<strong>&raquo;</strong> <a href="http://downloads.wordpress.org/plugin/wp-postviews.1.11.zip" title="http://downloads.wordpress.org/plugin/wp-postviews.1.11.zip">WP-PostViews 1.11 For WordPress 2.1.x And 2.2.x</a><br />
 				<strong>&raquo;</strong> <a href="http://downloads.wordpress.org/plugin/wp-postviews.1.02.zip" title="http://downloads.wordpress.org/plugin/wp-postviews.1.02.zip">WP-PostViews 1.02 For WordPress 2.0.x</a><br />
@@ -287,10 +288,13 @@
 				<li>
 					<strong>Version 1.50 (01-06-2009)</strong>
 					<ul>
+						<li>NEW: Works For WordPress 2.8 Only</li>
 						<li>NEW: Uses jQuery Framework</li>
 						<li>NEW: Added In Most Viewed Pages To WP-Stats</li>
 						<li>NEW: Use _n() Instead Of __ngettext() And _n_noop() Instead Of __ngettext_noop()</li>
 						<li>FIXED: Uses $_SERVER['PHP_SELF'] With plugin_basename(__FILE__) Instead Of Just $_SERVER['REQUEST_URI']</li>
+						<li>NEW: Uses New Widget Class From WordPress</li>
+						<li>NEW: Merge Widget Code To wp-postviews.php And Remove wp-postviews-widget.php</li>
 						<li>FIXED: Ensure That Post Is Not A Revision</li>
 						<li>FIXED: Multiple Loops Filtered Not Cleared</li>
 					</ul>
@@ -448,28 +452,16 @@
 					</blockquote>
 				</li>
 				<li>
-					Go to <strong>'WP-Admin -> Settings -> Post Views'</strong> to configure the plugin.
+					Go to <strong>'WP-Admin -> Settings -> PostViews'</strong> to configure the plugin.
 				</li>
 			</ol>
 			<div class="SubSubTitle">View Stats (With Widgets)</div>
 			<ol>
 				<li>
-					<strong>Activate</strong> WP-PostViews Widget Plugin
-				</li>
-				<li>
 					Go to '<strong>WP-Admin -> Appearance -> Widgets</strong>'
 				</li>
 				<li>
-					To Display <strong>Most Viewed Post</strong>
-				</li>
-				<li>
-					You can <strong>add</strong> the Most Viewed Widget by clicking on the 'Add' link besides it.
-				</li>
-				<li>
-					After adding, you can <strong>configure</strong> the Most Viewed Widget by clicking on the 'Edit' link besides it.
-				</li>
-				<li>
-					Click 'Save Changes'
+					The widget name is <strong>Views</strong>.
 				</li>
 			</ol>
 			<div class="SubSubTitle">View Stats (Outside WP Loop)</div>

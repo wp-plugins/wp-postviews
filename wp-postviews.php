@@ -561,6 +561,119 @@ function increment_views() {
 }
 
 
+### Class: WP-PostViews Widget
+ class WP_Widget_PostViews extends WP_Widget {
+	// Constructor
+	function WP_Widget_PostViews() {
+		$widget_ops = array('description' => __('WP-PostViews views statistics', 'wp-postviews'));
+		$this->WP_Widget('views', __('Views', 'wp-postviews'), $widget_ops);
+	}
+
+	// Display Widget
+	function widget($args, $instance) {
+		extract($args);
+		$title = attribute_escape($instance['title']);
+		$type = attribute_escape($instance['type']);
+		$mode = attribute_escape($instance['mode']);
+		$limit = intval($instance['limit']);
+		$chars = intval($instance['chars']);
+		$cat_ids = explode(',', attribute_escape($instance['cat_ids']));
+		echo $before_widget.$before_title.$title.$after_title;
+		echo '<ul>'."\n";
+		switch($type) {
+			case 'least_viewed':
+				get_least_viewed($mode, $limit, $chars);
+				break;
+			case 'most_viewed':
+				get_most_viewed($mode, $limit, $chars);
+				break;
+			case 'most_viewed_category':
+				get_most_viewed_category($cat_ids, $mode, $limit, $chars);
+				break;
+			case 'least_viewed_category':
+				get_least_viewed_category($cat_ids, $mode, $limit, $chars);
+				break;
+		}
+		echo '</ul>'."\n";
+		echo $after_widget;
+	}
+
+	// When Widget Control Form Is Posted
+	function update($new_instance, $old_instance) {
+		if (!isset($new_instance['submit'])) {
+			return false;
+		}
+		$instance = $old_instance;
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['type'] = strip_tags($new_instance['type']);
+		$instance['mode'] = strip_tags($new_instance['mode']);
+		$instance['limit'] = intval($new_instance['limit']);
+		$instance['chars'] = intval($new_instance['chars']);
+		$instance['cat_ids'] = strip_tags($new_instance['cat_ids']);
+		return $instance;
+	}
+
+	// DIsplay Widget Control Form
+	function form($instance) {
+		global $wpdb;
+		$instance = wp_parse_args((array) $instance, array('title' => __('Views', 'wp-postviews'), 'type' => 'most_viewed', 'mode' => 'both', 'limit' => 10, 'chars' => 200, 'cat_ids' => '0'));
+		$title = attribute_escape($instance['title']);
+		$type = attribute_escape($instance['type']);
+		$mode = attribute_escape($instance['mode']);
+		$limit = intval($instance['limit']);
+		$chars = intval($instance['chars']);
+		$cat_ids = attribute_escape($instance['cat_ids']);
+?>
+		<p>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'wp-postviews'); ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('type'); ?>"><?php _e('Statistics Type:', 'wp-postviews'); ?>
+				<select name="<?php echo $this->get_field_name('type'); ?>" id="<?php echo $this->get_field_id('type'); ?>" class="widefat">
+					<option value="least_viewed"<?php selected('least_viewed', $type); ?>><?php _e('Least Viewed', 'wp-postviews'); ?></option>
+					<option value="least_viewed_category"<?php selected('least_viewed_category', $type); ?>><?php _e('Least Viewed By Category', 'wp-postviews'); ?></option>
+					<optgroup>&nbsp;</optgroup>
+					<option value="most_viewed"<?php selected('most_viewed', $type); ?>><?php _e('Most Viewed', 'wp-postviews'); ?></option>
+					<option value="most_viewed_category"<?php selected('most_viewed_category', $type); ?>><?php _e('Most Viewed By Category', 'wp-postviews'); ?></option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('mode'); ?>"><?php _e('Include Views From:', 'wp-postviews'); ?>
+				<select name="<?php echo $this->get_field_name('mode'); ?>" id="<?php echo $this->get_field_id('mode'); ?>" class="widefat">
+					<option value="both"<?php selected('both', $mode); ?>><?php _e('Posts &amp; Pages', 'wp-postviews'); ?></option>
+					<option value="post"<?php selected('post', $mode); ?>><?php _e('Posts Only', 'wp-postviews'); ?></option>
+					<option value="page"<?php selected('page', $mode); ?>><?php _e('Pages Only', 'wp-postviews'); ?></option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('limit'); ?>"><?php _e('No. Of Records To Show:', 'wp-postviews'); ?> <input class="widefat" id="<?php echo $this->get_field_id('limit'); ?>" name="<?php echo $this->get_field_name('limit'); ?>" type="text" value="<?php echo $limit; ?>" /></label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('chars'); ?>"><?php _e('Maximum Post Title Length (Characters):', 'wp-postviews'); ?> <input class="widefat" id="<?php echo $this->get_field_id('chars'); ?>" name="<?php echo $this->get_field_name('chars'); ?>" type="text" value="<?php echo $chars; ?>" /></label><br />
+			<small><?php _e('<strong>0</strong> to disable.', 'wp-postviews'); ?></small>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('cat_ids'); ?>"><?php _e('Category IDs:', 'wp-postviews'); ?> <span style="color: red;">*</span> <input class="widefat" id="<?php echo $this->get_field_id('cat_ids'); ?>" name="<?php echo $this->get_field_name('cat_ids'); ?>" type="text" value="<?php echo $cat_ids; ?>" /></label><br />
+			<small><?php _e('Seperate mutiple categories with commas.', 'wp-postviews'); ?></small>
+		</p>
+		<p style="color: red;">
+			<small><?php _e('* If you are not using any category statistics, you can ignore it.', 'wp-postviews'); ?></small>
+		<p>
+		<input type="hidden" id="<?php echo $this->get_field_id('submit'); ?>" name="<?php echo $this->get_field_name('submit'); ?>" value="1" />
+<?php
+	}
+}
+
+
+### Function: Init WP-PostViews Widget
+add_action('widgets_init', 'widget_views_init');
+function widget_views_init() {
+	register_widget('WP_Widget_PostViews');
+}
+
+
 ### Function: Post Views Options
 add_action('activate_wp-postviews/wp-postviews.php', 'views_init');
 function views_init() {
