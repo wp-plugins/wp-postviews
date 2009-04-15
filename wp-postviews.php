@@ -691,5 +691,7 @@ function views_init() {
 	$views_options['template'] = __('%VIEW_COUNT% views', 'wp-postviews');
 	$views_options['most_viewed_template'] = '<li><a href="%POST_URL%"  title="%POST_TITLE%">%POST_TITLE%</a> - %VIEW_COUNT% '.__('views', 'wp-postviews').'</li>';
 	add_option('views_options', $views_options, 'Post Views Options');
+	// Veersion 1.50 Upgrade
+	delete_option('widget_views_most_viewed');
 }
 ?>

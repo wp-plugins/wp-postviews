@@ -22,7 +22,7 @@ $base_name = plugin_basename('wp-postviews/postviews-options.php');
 $base_page = 'admin.php?page='.$base_name;
 $id = intval($_GET['id']);
 $mode = trim($_GET['mode']);
-$views_settings = array('views_options', 'widget_views_most_viewed');
+$views_settings = array('views_options', 'widget_views_most_viewed', 'widget_views');
 $views_postmetas = array('views');
 
 
