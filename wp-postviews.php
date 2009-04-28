@@ -572,12 +572,12 @@ function increment_views() {
 	// Display Widget
 	function widget($args, $instance) {
 		extract($args);
-		$title = attribute_escape($instance['title']);
-		$type = attribute_escape($instance['type']);
-		$mode = attribute_escape($instance['mode']);
+		$title = attr($instance['title']);
+		$type = attr($instance['type']);
+		$mode = attr($instance['mode']);
 		$limit = intval($instance['limit']);
 		$chars = intval($instance['chars']);
-		$cat_ids = explode(',', attribute_escape($instance['cat_ids']));
+		$cat_ids = explode(',', attr($instance['cat_ids']));
 		echo $before_widget.$before_title.$title.$after_title;
 		echo '<ul>'."\n";
 		switch($type) {
@@ -617,12 +617,12 @@ function increment_views() {
 	function form($instance) {
 		global $wpdb;
 		$instance = wp_parse_args((array) $instance, array('title' => __('Views', 'wp-postviews'), 'type' => 'most_viewed', 'mode' => 'both', 'limit' => 10, 'chars' => 200, 'cat_ids' => '0'));
-		$title = attribute_escape($instance['title']);
-		$type = attribute_escape($instance['type']);
-		$mode = attribute_escape($instance['mode']);
+		$title = attr($instance['title']);
+		$type = attr($instance['type']);
+		$mode = attr($instance['mode']);
 		$limit = intval($instance['limit']);
 		$chars = intval($instance['chars']);
-		$cat_ids = attribute_escape($instance['cat_ids']);
+		$cat_ids = attr($instance['cat_ids']);
 ?>
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'wp-postviews'); ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></label>
