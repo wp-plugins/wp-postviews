@@ -430,6 +430,7 @@ function views_orderby($content) {
 
 ### Function: Add Views Custom Fields
 add_action('publish_post', 'add_views_fields');
+add_action('publish_page', 'add_views_fields');
 function add_views_fields($post_ID) {
 	global $wpdb;
 	if(!wp_is_post_revision($post_ID)) {
@@ -440,6 +441,7 @@ function add_views_fields($post_ID) {
 
 ### Function: Delete Views Custom Fields
 add_action('delete_post', 'delete_views_fields');
+add_action('delete_page', 'delete_views_fields');
 function delete_views_fields($post_ID) {
 	global $wpdb;
 	if(!wp_is_post_revision($post_ID)) {
