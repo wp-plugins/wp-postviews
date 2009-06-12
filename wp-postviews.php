@@ -183,18 +183,17 @@ if(!function_exists('get_least_viewed')) {
 			foreach ($most_viewed as $post) {
 				$post_views = intval($post->views);
 				$post_title = get_the_title();
-				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password);
-				$post_content = get_the_content();
-				if($chars > 0) {				
-					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - ".sprintf(_n('%s view', '%s views', $post_views, 'wp-postviews'), number_format_i18n($post_views))."</li>\n";
-				} else {
-					$temp = stripslashes($views_options['most_viewed_template']);
-					$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
-					$temp = str_replace("%POST_TITLE%", $post_title, $temp);
-					$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
-					$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
-					$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				if($chars > 0) {
+					$post_title = snippet_text($post_title, $chars);
 				}
+				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
+				$post_content = get_the_content();
+				$temp = stripslashes($views_options['most_viewed_template']);
+				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
+				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
+				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
 				$output .= $temp;
 			}			
 		} else {
@@ -227,18 +226,17 @@ if(!function_exists('get_most_viewed')) {
 			foreach ($most_viewed as $post) {
 				$post_views = intval($post->views);
 				$post_title = get_the_title();
-				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password);
-				$post_content = get_the_content();
-				if($chars > 0) {				
-					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - ".sprintf(_n('%s view', '%s views', $post_views, 'wp-postviews'), number_format_i18n($post_views))."</li>\n";
-				} else {
-					$temp = stripslashes($views_options['most_viewed_template']);
-					$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
-					$temp = str_replace("%POST_TITLE%", $post_title, $temp);
-					$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
-					$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
-					$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				if($chars > 0) {
+					$post_title = snippet_text($post_title, $chars);
 				}
+				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
+				$post_content = get_the_content();
+				$temp = stripslashes($views_options['most_viewed_template']);
+				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
+				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
+				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
 				$output .= $temp;
 			}			
 		} else {
@@ -276,18 +274,17 @@ if(!function_exists('get_least_viewed_category')) {
 			foreach ($most_viewed as $post) {
 				$post_views = intval($post->views);
 				$post_title = get_the_title();
-				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password);
-				$post_content = get_the_content();
-				if($chars > 0) {				
-					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - ".sprintf(_n('%s view', '%s views', $post_views, 'wp-postviews'), number_format_i18n($post_views))."</li>\n";
-				} else {
-					$temp = stripslashes($views_options['most_viewed_template']);
-					$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
-					$temp = str_replace("%POST_TITLE%", $post_title, $temp);
-					$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
-					$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
-					$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				if($chars > 0) {
+					$post_title = snippet_text($post_title, $chars);
 				}
+				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
+				$post_content = get_the_content();
+				$temp = stripslashes($views_options['most_viewed_template']);
+				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
+				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
+				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
 				$output .= $temp;
 			}
 		} else {
@@ -325,18 +322,113 @@ if(!function_exists('get_most_viewed_category')) {
 			foreach ($most_viewed as $post) {
 				$post_views = intval($post->views);
 				$post_title = get_the_title();
-				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password);
-				$post_content = get_the_content();
-				if($chars > 0) {				
-					$temp = "<li><a href=\"".get_permalink()."\">".snippet_text($post_title, $chars)."</a> - ".sprintf(_n('%s view', '%s views', $post_views, 'wp-postviews'), number_format_i18n($post_views))."</li>\n";
-				} else {
-					$temp = stripslashes($views_options['most_viewed_template']);
-					$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
-					$temp = str_replace("%POST_TITLE%", $post_title, $temp);
-					$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
-					$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
-					$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				if($chars > 0) {
+					$post_title = snippet_text($post_title, $chars);
 				}
+				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
+				$post_content = get_the_content();
+				$temp = stripslashes($views_options['most_viewed_template']);
+				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
+				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
+				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				$output .= $temp;
+			}
+		} else {
+			$output = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
+		}
+		if($display) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
+}
+
+
+### Function: Display Most Viewed Page/Post By Tag ID
+if(!function_exists('get_most_viewed_tag')) {
+	function get_most_viewed_tag($tag_id = 0, $mode = '', $limit = 10, $chars = 0, $display = true) {
+		global $wpdb, $post;
+		$views_options = get_option('views_options');
+		$where = '';
+		$temp = '';
+		$output = '';
+		if(is_array($tag_id)) {
+			$tag_sql = "$wpdb->term_taxonomy.term_id IN (".join(',', $tag_id).')';
+		} else {
+			$tag_sql = "$wpdb->term_taxonomy.term_id = $tag_id";
+		}
+		if(!empty($mode) && $mode != 'both') {
+			$where = "post_type = '$mode'";
+		} else {
+			$where = '1=1';
+		}
+		$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID INNER JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id) INNER JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id) WHERE post_date < '".current_time('mysql')."' AND $wpdb->term_taxonomy.taxonomy = 'post_tag' AND $tag_sql AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views DESC LIMIT $limit");
+		if($most_viewed) {
+			foreach ($most_viewed as $post) {
+				$post_views = intval($post->views);
+				$post_title = get_the_title();
+				if($chars > 0) {
+					$post_title = snippet_text($post_title, $chars);
+				}
+				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
+				$post_content = get_the_content();
+				$temp = stripslashes($views_options['most_viewed_template']);
+				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
+				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
+				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				$output .= $temp;
+			}
+		} else {
+			$output = '<li>'.__('N/A', 'wp-postviews').'</li>'."\n";
+		}
+		if($display) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
+}
+
+
+### Function: Display Least Viewed Page/Post By Tag ID
+if(!function_exists('get_least_viewed_tag')) {
+	function get_least_viewed_tag($tag_id = 0, $mode = '', $limit = 10, $chars = 0, $display = true) {
+		global $wpdb, $post;
+		$views_options = get_option('views_options');
+		$where = '';
+		$temp = '';
+		$output = '';
+		if(is_array($tag_id)) {
+			$tag_sql = "$wpdb->term_taxonomy.term_id IN (".join(',', $tag_id).')';
+		} else {
+			$tag_sql = "$wpdb->term_taxonomy.term_id = $tag_id";
+		}
+		if(!empty($mode) && $mode != 'both') {
+			$where = "post_type = '$mode'";
+		} else {
+			$where = '1=1';
+		}
+		$most_viewed = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.*, (meta_value+0) AS views FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON $wpdb->postmeta.post_id = $wpdb->posts.ID INNER JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id) INNER JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id) WHERE post_date < '".current_time('mysql')."' AND $wpdb->term_taxonomy.taxonomy = 'post_tag' AND $tag_sql AND $where AND post_status = 'publish' AND meta_key = 'views' AND post_password = '' ORDER  BY views ASC LIMIT $limit");
+		if($most_viewed) {
+			foreach ($most_viewed as $post) {
+				$post_views = intval($post->views);
+				$post_title = get_the_title();
+				if($chars > 0) {
+					$post_title = snippet_text($post_title, $chars);
+				}
+				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
+				$post_content = get_the_content();
+				$temp = stripslashes($views_options['most_viewed_template']);
+				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
+				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
+				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
 				$output .= $temp;
 			}
 		} else {
@@ -388,14 +480,14 @@ if(!function_exists('snippet_text')) {
 
 
 ### Function: Process Post Excerpt, For Some Reasons, The Default get_post_excerpt() Does Not Work As Expected
-function views_post_excerpt($post_excerpt, $post_content, $post_password) {
+function views_post_excerpt($post_excerpt, $post_content, $post_password, $chars = 200) {
 	if(!empty($post_password)) {
 		if(!isset($_COOKIE['wp-postpass_'.COOKIEHASH]) || $_COOKIE['wp-postpass_'.COOKIEHASH] != $post_password) {
 			return __('There is no excerpt because this is a protected post.', 'wp-postviews');
 		}
 	}
 	if(empty($post_excerpt)) {
-		return snippet_text(strip_tags($post_content), 200);
+		return snippet_text(strip_tags($post_content), $chars);
 	} else {
 		return $post_excerpt;
 	}
