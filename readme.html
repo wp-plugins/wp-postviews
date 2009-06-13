@@ -295,6 +295,7 @@
 						<li>FIXED: Uses $_SERVER['PHP_SELF'] With plugin_basename(__FILE__) Instead Of Just $_SERVER['REQUEST_URI']</li>
 						<li>NEW: Uses New Widget Class From WordPress</li>
 						<li>NEW: Merge Widget Code To wp-postviews.php And Remove wp-postviews-widget.php</li>
+						<li>NEW: Added get_most_viewed_tag() And get_least_viewed_tag()</li>
 						<li>FIXED: Ensure That Post Is Not A Revision</li>
 						<li>FIXED: Multiple Loops Filtered Not Cleared</li>
 					</ul>
@@ -501,6 +502,42 @@
 						The <strong>second value</strong> you pass in is the maximum number of post you want to get.
 					</p>
 					<p>Default: get_most_viewed('both', 10);</p>
+				</li>
+				<li>
+					To Display <strong>Least Viewed Posts By Tag</strong>
+				</li>
+				<li>
+					Use:
+					<blockquote>
+						&lt;?php if (function_exists('get_least_viewed_tag')): ?&gt;<br />
+						&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php get_least_viewed_tag(); ?&gt;<br />
+						&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br />
+						&lt;?php endif; ?&gt;
+					</blockquote>
+					<p>
+						The <strong>first value</strong> you pass in is the tag id.<br />
+						The <strong>second value</strong> you pass in is what you want to get, 'post', 'page' or 'both'.<br />
+						The <strong>third value</strong> you pass in is the maximum number of post you want to get.</p>
+					<p>Default: get_least_viewed_tag(1, 'both', 10);</p>
+				</li>
+				<li>
+					To Display <strong>Most Viewed Posts By Tag</strong>
+				</li>
+				<li>
+					Use:
+					<blockquote>
+						&lt;?php if (function_exists('get_most_viewed_tag')): ?&gt;<br />
+						&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php get_most_viewed_tag(); ?&gt;<br />
+						&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br />
+						&lt;?php endif; ?&gt;
+					</blockquote>
+					<p>
+						The <strong>first value</strong> you pass in is the tag id.<br />
+						The <strong>second value</strong> you pass in is what you want to get, 'post', 'page' or 'both'.<br />
+						The <strong>third value</strong> you pass in is the maximum number of post you want to get.</p>
+					<p>Default: get_most_viewed_tag(1, 'both', 10);</p>
 				</li>
 				<li>
 					To Display <strong>Least Viewed Posts For A Category</strong>
