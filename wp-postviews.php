@@ -3,7 +3,7 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Enables you to display how many times a post/page had been viewed. Modified by <a href="http://DPotter.net/Technical/" title="David's Technical Musings">David Potter</a> to include options for when and where to display view counts.
-Version: 1.50
+Version: 1.60
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 */
@@ -168,7 +168,7 @@ function the_views($display = true, $prefix = '', $postfix = '', $always = false
 ### Function: Display Least Viewed Page/Post
 if(!function_exists('get_least_viewed')) {
 	function get_least_viewed($mode = '', $limit = 10, $chars = 0, $display = true) {
-		global $wpdb, $post;
+		global $wpdb;
 		$views_options = get_option('views_options');
 		$where = '';
 		$temp = '';
@@ -211,7 +211,7 @@ if(!function_exists('get_least_viewed')) {
 ### Function: Display Most Viewed Page/Post
 if(!function_exists('get_most_viewed')) {
 	function get_most_viewed($mode = '', $limit = 10, $chars = 0, $display = true) {
-		global $wpdb, $post;
+		global $wpdb;
 		$views_options = get_option('views_options');
 		$where = '';
 		$temp = '';
@@ -254,7 +254,7 @@ if(!function_exists('get_most_viewed')) {
 ### Function: Display Leased Viewed Page/Post By Category ID
 if(!function_exists('get_least_viewed_category')) {
 	function get_least_viewed_category($category_id = 0, $mode = '', $limit = 10, $chars = 0, $display = true) {
-		global $wpdb, $post;
+		global $wpdb;
 		$views_options = get_option('views_options');
 		$where = '';
 		$temp = '';
@@ -302,7 +302,7 @@ if(!function_exists('get_least_viewed_category')) {
 ### Function: Display Most Viewed Page/Post By Category ID
 if(!function_exists('get_most_viewed_category')) {
 	function get_most_viewed_category($category_id = 0, $mode = '', $limit = 10, $chars = 0, $display = true) {
-		global $wpdb, $post;
+		global $wpdb;
 		$views_options = get_option('views_options');
 		$where = '';
 		$temp = '';
@@ -350,7 +350,7 @@ if(!function_exists('get_most_viewed_category')) {
 ### Function: Display Most Viewed Page/Post By Tag ID
 if(!function_exists('get_most_viewed_tag')) {
 	function get_most_viewed_tag($tag_id = 0, $mode = '', $limit = 10, $chars = 0, $display = true) {
-		global $wpdb, $post;
+		global $wpdb;
 		$views_options = get_option('views_options');
 		$where = '';
 		$temp = '';
@@ -398,7 +398,7 @@ if(!function_exists('get_most_viewed_tag')) {
 ### Function: Display Least Viewed Page/Post By Tag ID
 if(!function_exists('get_least_viewed_tag')) {
 	function get_least_viewed_tag($tag_id = 0, $mode = '', $limit = 10, $chars = 0, $display = true) {
-		global $wpdb, $post;
+		global $wpdb;
 		$views_options = get_option('views_options');
 		$where = '';
 		$temp = '';

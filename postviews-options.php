@@ -2,7 +2,7 @@
 /*
 +----------------------------------------------------------------+
 |																							|
-|	WordPress 2.7 Plugin: WP-PostViews 1.50	 								|
+|	WordPress 2.8 Plugin: WP-PostViews 1.60	 								|
 |	Copyright (c) 2009 Lester "GaMerZ" Chan									|
 |																							|
 |	File Written By:																	|
