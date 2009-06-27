@@ -187,12 +187,11 @@ if(!function_exists('get_least_viewed')) {
 					$post_title = snippet_text($post_title, $chars);
 				}
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
-				$post_content = get_the_content();
 				$temp = stripslashes($views_options['most_viewed_template']);
 				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
-				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post->post_content, $temp);
 				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}			
@@ -230,12 +229,11 @@ if(!function_exists('get_most_viewed')) {
 					$post_title = snippet_text($post_title, $chars);
 				}
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
-				$post_content = get_the_content();
 				$temp = stripslashes($views_options['most_viewed_template']);
 				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
-				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post->post_content, $temp);
 				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}			
@@ -278,12 +276,11 @@ if(!function_exists('get_least_viewed_category')) {
 					$post_title = snippet_text($post_title, $chars);
 				}
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
-				$post_content = get_the_content();
 				$temp = stripslashes($views_options['most_viewed_template']);
 				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
-				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post->post_content, $temp);
 				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}
@@ -326,12 +323,11 @@ if(!function_exists('get_most_viewed_category')) {
 					$post_title = snippet_text($post_title, $chars);
 				}
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
-				$post_content = get_the_content();
 				$temp = stripslashes($views_options['most_viewed_template']);
 				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
-				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post->post_content, $temp);
 				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}
@@ -374,12 +370,11 @@ if(!function_exists('get_most_viewed_tag')) {
 					$post_title = snippet_text($post_title, $chars);
 				}
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
-				$post_content = get_the_content();
 				$temp = stripslashes($views_options['most_viewed_template']);
 				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
-				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post->post_content, $temp);
 				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}
@@ -422,12 +417,11 @@ if(!function_exists('get_least_viewed_tag')) {
 					$post_title = snippet_text($post_title, $chars);
 				}
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
-				$post_content = get_the_content();
 				$temp = stripslashes($views_options['most_viewed_template']);
 				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
-				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
+				$temp = str_replace("%POST_CONTENT%", $post->post_content, $temp);
 				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}
