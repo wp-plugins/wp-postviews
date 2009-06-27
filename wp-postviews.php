@@ -182,7 +182,7 @@ if(!function_exists('get_least_viewed')) {
 		if($most_viewed) {
 			foreach ($most_viewed as $post) {
 				$post_views = intval($post->views);
-				$post_title = get_the_title();
+				$post_title = get_the_title($post);
 				if($chars > 0) {
 					$post_title = snippet_text($post_title, $chars);
 				}
@@ -193,7 +193,7 @@ if(!function_exists('get_least_viewed')) {
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
 				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
-				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}			
 		} else {
@@ -225,7 +225,7 @@ if(!function_exists('get_most_viewed')) {
 		if($most_viewed) {
 			foreach ($most_viewed as $post) {
 				$post_views = intval($post->views);
-				$post_title = get_the_title();
+				$post_title = get_the_title($post);
 				if($chars > 0) {
 					$post_title = snippet_text($post_title, $chars);
 				}
@@ -236,7 +236,7 @@ if(!function_exists('get_most_viewed')) {
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
 				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
-				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}			
 		} else {
@@ -273,7 +273,7 @@ if(!function_exists('get_least_viewed_category')) {
 		if($most_viewed) {
 			foreach ($most_viewed as $post) {
 				$post_views = intval($post->views);
-				$post_title = get_the_title();
+				$post_title = get_the_title($post);
 				if($chars > 0) {
 					$post_title = snippet_text($post_title, $chars);
 				}
@@ -284,7 +284,7 @@ if(!function_exists('get_least_viewed_category')) {
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
 				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
-				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}
 		} else {
@@ -321,7 +321,7 @@ if(!function_exists('get_most_viewed_category')) {
 		if($most_viewed) {
 			foreach ($most_viewed as $post) {
 				$post_views = intval($post->views);
-				$post_title = get_the_title();
+				$post_title = get_the_title($post);
 				if($chars > 0) {
 					$post_title = snippet_text($post_title, $chars);
 				}
@@ -332,7 +332,7 @@ if(!function_exists('get_most_viewed_category')) {
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
 				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
-				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}
 		} else {
@@ -369,7 +369,7 @@ if(!function_exists('get_most_viewed_tag')) {
 		if($most_viewed) {
 			foreach ($most_viewed as $post) {
 				$post_views = intval($post->views);
-				$post_title = get_the_title();
+				$post_title = get_the_title($post);
 				if($chars > 0) {
 					$post_title = snippet_text($post_title, $chars);
 				}
@@ -380,7 +380,7 @@ if(!function_exists('get_most_viewed_tag')) {
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
 				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
-				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}
 		} else {
@@ -417,7 +417,7 @@ if(!function_exists('get_least_viewed_tag')) {
 		if($most_viewed) {
 			foreach ($most_viewed as $post) {
 				$post_views = intval($post->views);
-				$post_title = get_the_title();
+				$post_title = get_the_title($post);
 				if($chars > 0) {
 					$post_title = snippet_text($post_title, $chars);
 				}
@@ -428,7 +428,7 @@ if(!function_exists('get_least_viewed_tag')) {
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
 				$temp = str_replace("%POST_CONTENT%", $post_content, $temp);
-				$temp = str_replace("%POST_URL%", get_permalink(), $temp);
+				$temp = str_replace("%POST_URL%", get_permalink($post), $temp);
 				$output .= $temp;
 			}
 		} else {
