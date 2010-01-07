@@ -59,6 +59,9 @@ function postviews_menu() {
 add_action('wp_head', 'process_postviews');
 function process_postviews() {
 	global $user_ID, $post;
+	if(is_int($post)) {
+		$post = get_post($post);
+	}
 	if(!wp_is_post_revision($post)) {
 		if(is_single() || is_page()) {
 			$id = intval($post->ID);
