@@ -3,7 +3,7 @@ Contributors: GamerZ
 Donate link: http://lesterchan.net/site/donation/
 Tags: views, hits, counter, postviews
 Requires at least: 2.8
-Tested up to: 3.0.4
+Tested up to: 3.3.1
 Stable tag: trunk
 
 Enables you to display how many times a post/page had been viewed.
