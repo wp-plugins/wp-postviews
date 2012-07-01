@@ -435,7 +435,7 @@ if(!function_exists('get_totalviews')) {
 		global $wpdb;
 		$total_views = intval($wpdb->get_var("SELECT SUM(meta_value+0) FROM $wpdb->postmeta WHERE meta_key = 'views'"));
 		if($display) {
-			echo $total_views;
+			echo number_format_i18n($total_views);
 		} else {
 			return $total_views;
 		}
