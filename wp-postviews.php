@@ -653,6 +653,8 @@ function increment_views() {
 ### Function Show Post Views Column in WP-Admin
 add_action('manage_posts_custom_column', 'add_postviews_column_content', 5, 2);
 add_filter('manage_posts_columns', 'add_postviews_column', 5, 2);
+add_action('manage_pages_custom_column', 'add_postviews_column_content', 5, 2);
+add_filter('manage_pages_columns', 'add_postviews_column', 5, 2);
 function add_postviews_column( $defaults ) {
     $defaults['viewscolumn'] = 'Views';
     return $defaults;
