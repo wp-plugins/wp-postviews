@@ -3,7 +3,7 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Enables you to display how many times a post/page had been viewed. Modified by <a href="http://DPotter.net/Technical/" title="David's Technical Musings">David Potter</a> to include options for when and where to display view counts.
-Version: 1.61
+Version: 1.62
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 */
@@ -651,22 +651,42 @@ function increment_views() {
 }
 
 ### Function Show Post Views Column in WP-Admin
-add_action('manage_posts_custom_column', 'add_postviews_column_content', 5, 2);
-add_filter('manage_posts_columns', 'add_postviews_column', 5, 2);
-add_action('manage_pages_custom_column', 'add_postviews_column_content', 5, 2);
-add_filter('manage_pages_columns', 'add_postviews_column', 5, 2);
-function add_postviews_column( $defaults ) {
-    $defaults['viewscolumn'] = 'Views';
+add_action('manage_posts_custom_column', 'add_postviews_column_content');
+add_filter('manage_posts_columns', 'add_postviews_column');
+add_action('manage_pages_custom_column', 'add_postviews_column_content');
+add_filter('manage_pages_columns', 'add_postviews_column');
+function add_postviews_column($defaults) {
+    $defaults['views'] = 'Views';
     return $defaults;
 }
 
 
 ### Functions Fill In The Views Count
 function add_postviews_column_content($column_name) {
-    if( $column_name == 'viewscolumn' ) {
+    if($column_name == 'views') {
         if(function_exists('the_views')) { the_views(); }
     }
 }
+
+
+### Function Sort Columns
+add_filter('manage_edit-post_sortable_columns', 'sort_postviews_column');
+add_filter('manage_edit-page_sortable_columns', 'sort_postviews_column');
+function sort_postviews_column($defaults)
+{
+    $defaults['views'] = 'views';
+    return $defaults;
+}
+add_action('pre_get_posts', 'sort_postviews');  
+function sort_postviews($query) {  
+	if(!is_admin())  
+		return;  
+	$orderby = $query->get('orderby');  
+	if('views' == $orderby) {  
+		$query->set('meta_key', 'views');  
+		$query->set('orderby', 'meta_value_num');  
+	}  
+}  
 
 
 ### Class: WP-PostViews Widget
