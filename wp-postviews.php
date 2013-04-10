@@ -6,6 +6,7 @@ Description: Enables you to display how many times a post/page had been viewed. 
 Version: 1.62
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
+Text Domain: wp-postviews
 */
 
 
