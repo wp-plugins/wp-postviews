@@ -1,19 +1,19 @@
 <?php
 /*
-+----------------------------------------------------------------+
-|																							|
-|	WordPress Plugin: WP-PostViews	 								|
-|	Copyright (c) 2012 Lester "GaMerZ" Chan									|
-|																							|
-|	File Written By:																	|
-|	- Lester "GaMerZ" Chan															|
-|	- http://lesterchan.net															|
-|																							|
-|	File Information:																	|
-|	- Post Views Options Page														|
-|	- wp-content/plugins/wp-postviews/postviews-options.php			|
-|																							|
-+----------------------------------------------------------------+
++---------------------------------------------------------------+
+|																|
+|	WordPress Plugin: WP-PostViews	 							|
+|	Copyright (c) 2013 Lester "GaMerZ" Chan						|
+|																|
+|	File Written By:											|
+|	- Lester "GaMerZ" Chan										|
+|	- http://lesterchan.net										|
+|																|
+|	File Information:											|
+|	- Post Views Options Page									|
+|	- wp-content/plugins/wp-postviews/postviews-options.php		|
+|																|
++---------------------------------------------------------------+
 */
 
 
@@ -59,7 +59,7 @@ if(!empty($_POST['Submit'])) {
 // Decide What To Do
 if(!empty($_POST['do'])) {
 	//  Uninstall WP-PostViews
-	switch($_POST['do']) {		
+	switch($_POST['do']) {
 		case __('UNINSTALL WP-PostViews', 'wp-postviews') :
 			if(trim($_POST['uninstall_views_yes']) == 'yes') {
 				echo '<div id="message" class="updated fade">';
@@ -91,7 +91,7 @@ if(!empty($_POST['do'])) {
 					}
 				}
 				echo '</p>';
-				echo '</div>'; 
+				echo '</div>';
 				$mode = 'end-UNINSTALL';
 			}
 			break;
@@ -104,7 +104,7 @@ switch($mode) {
 		//  Deactivating WP-PostViews
 		case 'end-UNINSTALL':
 			$deactivate_url = 'plugins.php?action=deactivate&amp;plugin=wp-postviews/wp-postviews.php';
-			if(function_exists('wp_nonce_url')) { 
+			if(function_exists('wp_nonce_url')) {
 				$deactivate_url = wp_nonce_url($deactivate_url, 'deactivate-plugin_wp-postviews/wp-postviews.php');
 			}
 			echo '<div class="wrap">';
@@ -252,12 +252,12 @@ switch($mode) {
 		<input type="submit" name="Submit" class="button-primary" value="<?php _e('Save Changes', 'wp-postviews'); ?>" />
 	</p>
 </div>
-</form> 
+</form>
 <p>&nbsp;</p>
 
 <!-- Uninstall WP-PostViews -->
 <form method="post" action="<?php echo admin_url('admin.php?page='.plugin_basename(__FILE__)); ?>">
-<div class="wrap"> 
+<div class="wrap">
 	<h3><?php _e('Uninstall WP-PostViews', 'wp-postviews'); ?></h3>
 	<p>
 		<?php _e('Deactivating WP-PostViews plugin does not remove any data that may have been created, such as the views data. To completely remove this plugin, you can uninstall it here.', 'wp-postviews'); ?>
@@ -302,7 +302,7 @@ switch($mode) {
 		<input type="checkbox" name="uninstall_views_yes" value="yes" />&nbsp;<?php _e('Yes', 'wp-postviews'); ?><br /><br />
 		<input type="submit" name="do" value="<?php _e('UNINSTALL WP-PostViews', 'wp-postviews'); ?>" class="button" onclick="return confirm('<?php _e('You Are About To Uninstall WP-PostViews From WordPress.\nThis Action Is Not Reversible.\n\n Choose [Cancel] To Stop, [OK] To Uninstall.', 'wp-postviews'); ?>')" />
 	</p>
-</div> 
+</div>
 </form>
 <?php
 } // End switch($mode)
