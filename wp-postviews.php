@@ -3,7 +3,7 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Enables you to display how many times a post/page had been viewed.
-Version: 1.67
+Version: 1.68
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 Text Domain: wp-postviews
@@ -118,6 +118,7 @@ function process_postviews() {
 			}
 			if( $should_count && ( ( isset( $views_options['use_ajax'] ) && intval( $views_options['use_ajax'] ) === 0 ) || ( !defined( 'WP_CACHE' ) || !WP_CACHE ) ) ) {
 				update_post_meta( $id, 'views', ( $post_views + 1 ) );
+				do_action( 'postviews_increment_views', ( $post_views + 1 ) );
 			}
 		}
 	}
@@ -155,8 +156,8 @@ function wp_postview_cache_count_enqueue() {
 				break;
 		}
 		if ( $should_count ) {
-			wp_enqueue_script( 'wp-postviews-cache', plugins_url( 'postviews-cache.js', __FILE__ ), array( 'jquery' ), '1.67', true );
-			wp_localize_script( 'wp-postviews-cache', 'viewsCacheL10n', array( 'admin_ajax_url' => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ), 'post_id' => intval( $post->ID ) ) );
+			wp_enqueue_script( 'wp-postviews-cache', plugins_url( 'postviews-cache.js', __FILE__ ), array( 'jquery' ), '1.68', true );
+			wp_localize_script( 'wp-postviews-cache', 'viewsCacheL10n', array( 'admin_ajax_url' => admin_url( 'admin-ajax.php' ), 'post_id' => intval( $post->ID ) ) );
 		}
 	}
 }
@@ -750,6 +751,7 @@ function increment_views() {
 		$post_views = get_post_custom( $post_id );
 		$post_views = intval( $post_views['views'][0] );
 		update_post_meta( $post_id, 'views', ( $post_views + 1 ) );
+		do_action( 'postviews_increment_views_ajax', ( $post_views + 1 ) );
 		echo ( $post_views + 1 );
 		exit();
 	}
@@ -804,14 +806,13 @@ function sort_postviews($query) {
 
 	// Display Widget
 	function widget($args, $instance) {
-		extract($args);
 		$title = apply_filters('widget_title', esc_attr($instance['title']));
 		$type = esc_attr($instance['type']);
 		$mode = esc_attr($instance['mode']);
 		$limit = intval($instance['limit']);
 		$chars = intval($instance['chars']);
 		$cat_ids = explode(',', esc_attr($instance['cat_ids']));
-		echo $before_widget.$before_title.$title.$after_title;
+		echo $args['before_widget'] . $args['before_title'] . $title . $args['after_title'];
 		echo '<ul>'."\n";
 		switch($type) {
 			case 'least_viewed':
@@ -828,7 +829,7 @@ function sort_postviews($query) {
 				break;
 		}
 		echo '</ul>'."\n";
-		echo $after_widget;
+		echo  $args['after_widget'];
 	}
 
 	// When Widget Control Form Is Posted
@@ -848,13 +849,16 @@ function sort_postviews($query) {
 
 	// DIsplay Widget Control Form
 	function form($instance) {
-		$instance = wp_parse_args((array) $instance, array('title' => __('Views', 'wp-postviews'), 'type' => 'most_viewed', 'mode' => 'both', 'limit' => 10, 'chars' => 200, 'cat_ids' => '0'));
+		$instance = wp_parse_args((array) $instance, array('title' => __('Views', 'wp-postviews'), 'type' => 'most_viewed', 'mode' => '', 'limit' => 10, 'chars' => 200, 'cat_ids' => '0'));
 		$title = esc_attr($instance['title']);
 		$type = esc_attr($instance['type']);
-		$mode = esc_attr($instance['mode']);
+		$mode = trim(esc_attr($instance['mode']));
 		$limit = intval($instance['limit']);
 		$chars = intval($instance['chars']);
 		$cat_ids = esc_attr($instance['cat_ids']);
+		$post_types = get_post_types(array(
+			'public' => true
+		));
 ?>
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'wp-postviews'); ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></label>
@@ -873,9 +877,12 @@ function sort_postviews($query) {
 		<p>
 			<label for="<?php echo $this->get_field_id('mode'); ?>"><?php _e('Include Views From:', 'wp-postviews'); ?>
 				<select name="<?php echo $this->get_field_name('mode'); ?>" id="<?php echo $this->get_field_id('mode'); ?>" class="widefat">
-					<option value="both"<?php selected('both', $mode); ?>><?php _e('Posts &amp; Pages', 'wp-postviews'); ?></option>
-					<option value="post"<?php selected('post', $mode); ?>><?php _e('Posts Only', 'wp-postviews'); ?></option>
-					<option value="page"<?php selected('page', $mode); ?>><?php _e('Pages Only', 'wp-postviews'); ?></option>
+					<option value=""<?php selected('', $mode); ?>><?php _e('All', 'wp-postviews'); ?></option>
+					<?php if($post_types > 0): ?>
+						<?php foreach($post_types as $post_type): ?>
+							<option value="<?php echo $post_type; ?>"<?php selected($post_type, $mode); ?>><?php printf(__('%s Only', 'wp-postviews'), ucfirst($post_type)); ?></option>
+						<?php endforeach; ?>
+					<?php endif; ?>
 				</select>
 			</label>
 		</p>
@@ -945,4 +952,8 @@ function views_activation( $network_wide ) {
 		add_option( $option_name, $option );
 	}
 }
-?>
+
+### Function: Parse View Options
+function views_options_parse($key) {
+	return !empty($_POST[$key]) ? $_POST[$key] : null;
+}
