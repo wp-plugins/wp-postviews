@@ -3,7 +3,7 @@
 Plugin Name: WP-PostViews
 Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Enables you to display how many times a post/page had been viewed.
-Version: 1.68
+Version: 1.69
 Author: Lester 'GaMerZ' Chan
 Author URI: http://lesterchan.net
 Text Domain: wp-postviews
@@ -200,10 +200,10 @@ function should_views_be_displayed($views_options = null) {
 
 ### Function: Display The Post Views
 function the_views($display = true, $prefix = '', $postfix = '', $always = false) {
-	$post_views = intval(post_custom('views'));
+	$post_views = intval( get_post_meta( get_the_ID(), 'views', true ) );
 	$views_options = get_option('views_options');
 	if ($always || should_views_be_displayed($views_options)) {
-		$output = $prefix.str_replace('%VIEW_COUNT%', number_format_i18n($post_views), $views_options['template']).$postfix;
+		$output = $prefix.str_replace( array( '%VIEW_COUNT%', '%VIEW_COUNT_ROUNDED%' ), array( number_format_i18n( $post_views ), postviews_round_number( $post_views) ), stripslashes( $views_options['template'] ) ).$postfix;
 		if($display) {
 			echo apply_filters('the_views', $output);
 		} else {
@@ -213,6 +213,21 @@ function the_views($display = true, $prefix = '', $postfix = '', $always = false
 	elseif (!$display) {
 		return '';
 	}
+}
+
+### Function: Short Code For Inserting Views Into Posts
+add_shortcode( 'views', 'views_shortcode' );
+function views_shortcode( $atts ) {
+	$attributes = shortcode_atts( array( 'id' => 0 ), $atts );
+	$id = intval( $attributes['id'] );
+	if( $id === 0) {
+		$id = get_the_ID();
+	}
+	$views_options = get_option( 'views_options' );
+	$post_views = intval( get_post_meta( $id, 'views', true ) );
+	$output = str_replace( array( '%VIEW_COUNT%', '%VIEW_COUNT_ROUNDED%' ), array( number_format_i18n( $post_views ), postviews_round_number( $post_views) ), stripslashes( $views_options['template'] ) );
+
+	return apply_filters( 'the_views', $output );
 }
 
 
@@ -245,6 +260,7 @@ if(!function_exists('get_least_viewed')) {
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
 				$temp = stripslashes($views_options['most_viewed_template']);
 				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
+				$temp = str_replace("%VIEW_COUNT_ROUNDED%", postviews_round_number( $post_views ), $temp);
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
 				$temp = str_replace("%POST_CONTENT%", $post->post_content, $temp);
@@ -293,7 +309,8 @@ if(!function_exists('get_most_viewed')) {
 				}
 				$post_excerpt = views_post_excerpt($post->post_excerpt, $post->post_content, $post->post_password, $chars);
 				$temp = stripslashes($views_options['most_viewed_template']);
-				$temp = str_replace("%VIEW_COUNT%", number_format_i18n($post_views), $temp);
+				$temp = str_replace("%VIEW_COUNT%", number_format_i18n( $post_views ), $temp);
+				$temp = str_replace("%VIEW_COUNT_ROUNDED%", postviews_round_number( $post_views ), $temp);
 				$temp = str_replace("%POST_TITLE%", $post_title, $temp);
 				$temp = str_replace("%POST_EXCERPT%", $post_excerpt, $temp);
 				$temp = str_replace("%POST_CONTENT%", $post->post_content, $temp);
@@ -658,12 +675,10 @@ function views_sorting($local_wp_query) {
 add_action('wp','postviews_wp_stats');
 function postviews_wp_stats() {
 	if(function_exists('stats_page')) {
-		if(strpos(get_option('stats_url'), $_SERVER['REQUEST_URI']) || strpos($_SERVER['REQUEST_URI'], 'stats-options.php') || strpos($_SERVER['REQUEST_URI'], 'wp-stats/wp-stats.php')) {
-			add_filter('wp_stats_page_admin_plugins', 'postviews_page_admin_general_stats');
-			add_filter('wp_stats_page_admin_most', 'postviews_page_admin_most_stats');
-			add_filter('wp_stats_page_plugins', 'postviews_page_general_stats');
-			add_filter('wp_stats_page_most', 'postviews_page_most_stats');
-		}
+		add_filter('wp_stats_page_admin_plugins', 'postviews_page_admin_general_stats');
+		add_filter('wp_stats_page_admin_most', 'postviews_page_admin_most_stats');
+		add_filter('wp_stats_page_plugins', 'postviews_page_general_stats');
+		add_filter('wp_stats_page_most', 'postviews_page_most_stats');
 	}
 }
 
@@ -793,6 +808,18 @@ function sort_postviews($query) {
 		$query->set('meta_key', 'views');
 		$query->set('orderby', 'meta_value_num');
 	}
+}
+
+### Function: Round Numbers To K (Thousand), M (Million) or B (Billion)
+function postviews_round_number( $number, $min_value = 1000, $decimal = 1 ) {
+	if( $number < $min_value ) {
+		return number_format_i18n( $number );
+	}
+	$alphabets = array( 1000000000 => 'B', 1000000 => 'M', 1000 => 'K' );
+	foreach( $alphabets as $key => $value )
+		if( $number >= $key ) {
+			return round( $number / $key, $decimal ) . '' . $value;
+		}
 }
 
 
